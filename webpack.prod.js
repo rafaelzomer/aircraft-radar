@@ -43,15 +43,6 @@ module.exports = {
               options: {
                 sourceMap: true
               }
-            },
-            {
-              // compiles Sass to CSS
-              loader: 'sass-loader',
-              options: {
-                outputStyle: 'expanded',
-                sourceMap: true,
-                sourceMapContents: true
-              }
             }
           ],
           fallback: 'style-loader'
