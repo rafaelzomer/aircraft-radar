@@ -15,12 +15,11 @@ export default {
 		canvas.drawLine(0, canvas.getMaxVertical() * -1);
 		canvas.drawLine(canvas.getMaxHorizontal(), 0);
 		canvas.drawLine(canvas.getMaxHorizontal() * -1, 0);
-		// canvas.drawLine(0, canvas.getHeight(), 0, 0);
-		// canvas.drawLine(300, 0, 300, 600); 
     },
     renderPlanes: function() {
-        new Plane(50, 50, 0, "WT-2341", 8000).render();
-        new Plane(50, 50, 90, "WT-2341", 8000).render();
-        // new Plane(500, 120, "CS-7211", 3000).render();
+        var plane1 = new Plane(50, 50, 0, "WT-2341", 8000);
+        var plane2 = new Plane(-50, -50, 90, "WT-2341", 8000);
+        plane1.render();
+        plane2.render();
     }
 }
