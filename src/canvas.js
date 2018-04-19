@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   context = canvasElement.getContext("2d");
 });
 
-export default {
+
+var canvas = {
   getWidth() {
     return canvasElement.width;
   },
@@ -18,9 +19,6 @@ export default {
   },
   getMaxHorizontal() {
     return this.getWidth() / 2;
-  },
-  getContext: function () {
-    return context;
   },
   drawLine: function (x, y, x2, y2) {
     context.strokeStyle = "#46A546";
@@ -45,11 +43,33 @@ export default {
   },
   clearCanvas: function () {
     context.clearRect(0, 0, 600, 600);
-  }, 
+  },
   getX: function(x) {
     return (this.getWidth()/2) + x;
   }, 
   getY: function(y) {
     return (this.getHeight()/2) + (y*-1);
+  }
+}
+
+export default {
+  objects: [],
+  update: function() {
+    canvas.clearCanvas();
+    for (let i = 0; i < this.objects.length; i++) {
+      const obj = this.objects[i];
+      // context.save();
+      obj.render(canvas, context);
+      // context.restore();
+    }
+  },
+  addObject: function(object) {
+    if (!object){
+      throw 'object is mandatory';
+    }
+    if (typeof object.render !== 'function') {
+      throw 'object should have a render function';
+    }
+    this.objects.push(object);
   }
 }
