@@ -17,12 +17,11 @@ export default {
 		canvas.drawLine(canvas.getMaxHorizontal() * -1, 0);
   },
   renderPlanes: function() {
-    canvas.addObject(new Plane(50, 50, 180, "WT-2341", 8000));
-    canvas.addObject(new Plane(-50, -50, 90, "WT-2341", 8000));
+    canvas.addObject(new Plane(50, -250, 135, "WT-2341", 8000));
+    canvas.addObject(new Plane(-250, -250, 90, "WT-2341", 8000));
     canvas.addObject(new Background());
-
     // setInterval(function() {
       canvas.update();
-    // }, 200);
+    // }, 50);
   }
 }

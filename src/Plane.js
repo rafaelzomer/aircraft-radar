@@ -15,48 +15,46 @@ export default function Plane(x, y, direction, code, velocity) {
   this.render = function (canvas, context) {
     var cordX = canvas.getX(_this.x);
     var cordY = canvas.getY(_this.y);
-    var comprimentoAviao = 30;
-    var larguraAviao = 30;
+    var airplaneLength = 30;
+    var airplaneWidth = 30;
     var img = new Image();
     img.onload = function() {
       context.save();
       context.translate(
-        cordX - (comprimentoAviao/2), 
-        cordY - (larguraAviao/2)
+        cordX - (airplaneLength/2), 
+        cordY - (airplaneWidth/2)
       );
-      context.translate(comprimentoAviao/2, larguraAviao/2);
+      context.translate(airplaneLength/2, airplaneWidth/2);
       context.rotate((_this.direction*-1)*Math.PI/180);
       context.drawImage(
         img,
-        -comprimentoAviao/2, 
-        -larguraAviao/2 
+        -airplaneLength/2, 
+        -airplaneWidth/2 
       );
       context.restore();
     }
     img.src = planeImg;
   }
 
-  _this.nextPosition = function() {
+  _this.nextPosition = function(x, y, distance) {
     var nextX = 0;
     var nextY = 0;
-
-    var relativeCord = move.moveToCenter(_this.x, _this.y);
-    var polar = convert.cartToPolar(x, y);
-    polar.r += _this.velocity;
-    var cart = convert.polarToCart(polar.r, polar.a);
+    var relativeCord = move.moveToCenter(x, y);
+    var cart = convert.polarToCart(distance, _this.direction);
+    var convertedX = cart.x - relativeCord.x;
+    var convertedY = cart.y - relativeCord.y;
     return {
-      x: cart.x + relativeCord.x,
-      y: cart.y + relativeCord.y
+      x: convertedX,
+      y: convertedY
     };
   }
 
   _this.move = function() {
-    setInterval(function() {
-      var nextPosition = _this.nextPosition();
-      console.log('nextPosition', nextPosition);
+    // setInterval(function() {
+      var nextPosition = _this.nextPosition(_this.x, _this.y, _this.velocity);
       _this.x = nextPosition.x;
       _this.y = nextPosition.y;
-    }, 1000)
+    // }, 50)
   }
 
   _this.move();
