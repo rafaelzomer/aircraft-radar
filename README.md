@@ -1,3 +1,4 @@
+![Cover image](cover.png)
 # Aircraft-radar
 Radar de aviões para aula de computaçao gráfica - UNESC
 
