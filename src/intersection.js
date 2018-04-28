@@ -1,5 +1,14 @@
 export default {
-  checkLineIntersection: function (line1StartX, line1StartY, line1EndX, line1EndY, line2StartX, line2StartY, line2EndX, line2EndY) {
+    checkLineIntersection: function ({
+      startX1,
+      startY1,
+      endX1,
+      endY1,
+      startX2,
+      startY2,
+      endX2,
+      endY2
+    }) {
     // if the lines intersect, the result contains the x and y of the intersection (treating the lines as infinite) and booleans for whether line segment 1 or line segment 2 contain the point
     var denominator, a, b, numerator1, numerator2, result = {
       x: null,
@@ -7,24 +16,24 @@ export default {
       onLine1: false,
       onLine2: false
     };
-    denominator = ((line2EndY - line2StartY) * (line1EndX - line1StartX)) - ((line2EndX - line2StartX) * (line1EndY - line1StartY));
+    denominator = ((endY2 - startY2) * (endX1 - startX1)) - ((endX2 - startX2) * (endY1 - startY1));
     if (denominator == 0) {
         return result;
     }
-    a = line1StartY - line2StartY;
-    b = line1StartX - line2StartX;
-    numerator1 = ((line2EndX - line2StartX) * a) - ((line2EndY - line2StartY) * b);
-    numerator2 = ((line1EndX - line1StartX) * a) - ((line1EndY - line1StartY) * b);
+    a = startY1 - startY2;
+    b = startX1 - startX2;
+    numerator1 = ((endX2 - startX2) * a) - ((endY2 - startY2) * b);
+    numerator2 = ((endX1 - startX1) * a) - ((endY1 - startY1) * b);
     a = numerator1 / denominator;
     b = numerator2 / denominator;
 
     // if we cast these lines infinitely in both directions, they intersect here:
-    result.x = line1StartX + (a * (line1EndX - line1StartX));
-    result.y = line1StartY + (a * (line1EndY - line1StartY));
+    result.x = startX1 + (a * (endX1 - startX1));
+    result.y = startY1 + (a * (endY1 - startY1));
 /*
         // it is worth noting that this should be the same as:
-        x = line2StartX + (b * (line2EndX - line2StartX));
-        y = line2StartX + (b * (line2EndY - line2StartY));
+        x = startX2 + (b * (endX2 - startX2));
+        y = startX2 + (b * (endY2 - startY2));
         */
     // if line1 is a segment and line2 is infinite, they intersect if:
     if (a > 0 && a < 1) {

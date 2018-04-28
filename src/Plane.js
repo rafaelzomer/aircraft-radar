@@ -50,11 +50,11 @@ export default function Plane(x, y, direction, code, velocity) {
   }
 
   _this.move = function() {
-    // setInterval(function() {
+    setInterval(function() {
       var nextPosition = _this.nextPosition(_this.x, _this.y, _this.velocity);
       _this.x = nextPosition.x;
       _this.y = nextPosition.y;
-    // }, 50)
+    }, 50)
   }
 
   _this.move();

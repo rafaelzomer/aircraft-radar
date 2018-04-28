@@ -1,4 +1,5 @@
 import canvas from './canvas.js';
+import collision from './collision.js';
 import Plane from './Plane.js';
 import Background from './Background.js';
 
@@ -17,9 +18,17 @@ export default {
 		canvas.drawLine(canvas.getMaxHorizontal() * -1, 0);
   },
   renderPlanes: function() {
-    canvas.addObject(new Plane(50, -250, 135, "WT-2341", 8000));
-    canvas.addObject(new Plane(-250, -250, 90, "WT-2341", 8000));
+    var plane1 = new Plane(50, -250, 135, "WT-2341", 4000);
+    var plane2 = new Plane(-250, -250, 90, "WT-2341", 4000);
+    var plane3 = new Plane(145, 145, 256, "WT-2341", 4000);
+    var plane4 = new Plane(0, 0, 3, "WT-2341", 4000);
+    canvas.addObject(plane1);
+    canvas.addObject(plane2);
+    canvas.addObject(plane3);
+    canvas.addObject(plane4);
     canvas.addObject(new Background());
+
+    collision.detect(plane1, plane2);
     // setInterval(function() {
       canvas.update();
     // }, 50);
