@@ -18,17 +18,34 @@ export default {
 		canvas.drawLine(canvas.getMaxHorizontal() * -1, 0);
   },
   renderPlanes: function() {
-    var plane1 = new Plane(50, -250, 135, "WT-2341", 4000);
-    var plane2 = new Plane(-250, -250, 90, "WT-2341", 4000);
-    var plane3 = new Plane(145, 145, 256, "WT-2341", 4000);
-    var plane4 = new Plane(0, 0, 3, "WT-2341", 4000);
-    canvas.addObject(plane1);
-    canvas.addObject(plane2);
-    canvas.addObject(plane3);
-    canvas.addObject(plane4);
+    var planes = [];
+    planes[0] = new Plane(-230, 0, 270, "WT-2341", 4000);
+    planes[1] = new Plane(50, -250, 135, "WT-2341", 4000);
+    planes[2] = new Plane(-250, -250, 90, "WT-2341", 4000);
+    planes[3] = new Plane(145, 145, 256, "WT-2341", 4000);
+    planes[4] = new Plane(0, 0, 3, "WT-2341", 4000);
+    canvas.addObject(planes[0]);
+    // canvas.addObject(planes[1]);
+    // canvas.addObject(planes[2]);
+    // canvas.addObject(planes[3]);
+    canvas.addObject(planes[4]);
     canvas.addObject(new Background());
 
-    collision.detect(plane1, plane2);
+    var planesWillCollide = [];
+    for (let i = 0; i < planes.length; i++) {
+      const plane1 = planes[i];
+      planesWillCollide[i] = planesWillCollide[i] || {};
+      for (let j = 0; j < planes.length; j++) {
+        planesWillCollide[j] = planesWillCollide[j] || {};
+        if (planesWillCollide[i][j] || planesWillCollide[j][i] || i == j) {
+          continue;
+        }
+        const plane2 = planes[j];
+        var willCollide = collision.detect(planes[i], planes[j]);
+        console.warn('planes', i, '=', j, '/', willCollide);
+        planesWillCollide[i][j] = willCollide;
+      }
+    }
     // setInterval(function() {
       canvas.update();
     // }, 50);
