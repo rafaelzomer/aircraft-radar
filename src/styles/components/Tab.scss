@@ -1,0 +1,35 @@
+.air-tab {
+  list-style: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  display: flex;
+  margin-top: $gutter-width; 
+  margin-bottom: $gutter-width; 
+  border-bottom: .2rem solid setColorOpacity(color('tertiary'), .25);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  &__item {
+    width: 100%;
+    background-color: transparent;
+    text-align: center;
+    text-transform: uppercase;
+    padding: .5rem;
+    cursor: pointer;
+    &--fit {
+      width: auto;
+    }
+    &:hover,
+    &:focus {
+      background-color: setColorOpacity(color('tertiary'), .15);
+    }
+    &--active {
+      background-color: setColorOpacity(color('tertiary'), .25);
+      &:hover,
+      &:focus {
+        background-color: setColorOpacity(color('tertiary'), .50);
+      }
+    }
+  }
+}

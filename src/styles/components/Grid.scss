@@ -1,0 +1,36 @@
+@import '~bootstrap-4-grid/scss/grid.scss';
+@at-root {
+  @-ms-viewport {
+    width: device-width;
+  } // stylelint-disable-line at-rule-no-vendor-prefix
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+@import "~bootstrap-4-grid/scss/grid/functions";
+@import "~bootstrap-4-grid/scss/grid/variables";
+
+$grid-gutter-width: $gutter-width * 2;
+
+@import "~bootstrap-4-grid/scss/grid/mixins/breakpoints";
+@import "~bootstrap-4-grid/scss/grid/mixins/grid-framework";
+@import "~bootstrap-4-grid/scss/grid/mixins/grid";
+@import "~bootstrap-4-grid/scss/grid/grid";
+@import "~bootstrap-4-grid/scss/grid/utilities/display";
+@import "~bootstrap-4-grid/scss/grid/utilities/flex";
+
+.row {
+  margin-bottom: $gutter-width;
+  &--no-gutter {
+    margin: 0;
+  }
+}

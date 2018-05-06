@@ -1,0 +1,14 @@
+.air-plane {
+    position: relative;
+    width: 19px;
+    height: 16px;
+    transform: rotate(90deg) scale(1, 1);
+    &__icon {
+        transform: rotate(var(--rotation));
+    }
+    &__desc {
+        font-size: .8rem;
+        position: absolute;
+        transform: rotate(-90deg) scale(1, -1);
+    }
+}

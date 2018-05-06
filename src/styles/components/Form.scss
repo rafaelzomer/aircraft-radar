@@ -1,0 +1,21 @@
+.air-label {
+    font-size: .9rem;
+    display: inline-block;
+    margin-bottom: $gutter-width / 2;
+}
+
+.air-input {
+    background-color: setColorOpacity(color('tertiary'), .15);
+    border-style: solid;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom: .2rem solid setColorOpacity(color('tertiary'), .25);
+    padding: .5rem;
+    color: color('tertiary');
+    width: 100%;
+    &:focus {
+        border-bottom-color: setColorOpacity(color('tertiary'), 1);
+    }
+
+}

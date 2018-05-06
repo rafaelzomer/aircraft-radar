@@ -1,0 +1,28 @@
+// Colors
+
+$colors: (
+    'primary': #24353F,
+    'secondary': #0F1519,
+    'tertiary': #D2F7FF
+) !default;
+
+// Font
+
+$font: (
+    'family': 'Roboto Condensed',
+    'icon': 'Material Icons',
+    'size': 16px,
+    'style': normal,
+    'color': color('tertiary'),
+    'weight': (
+        'light': 300,
+        'regular': 400,
+        'semibold': 500,
+        'bold': 700,
+        'extrabold': 800
+    )
+) !default;
+
+// Grid
+
+$gutter-width: .5rem !default;

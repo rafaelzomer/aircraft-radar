@@ -1,5 +1,4 @@
 const path = require('path');
-
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -20,33 +19,29 @@ module.exports = {
         }
       },
       {
-        test: /\.(scss|css)$/,
+        test: /\.(s?css)$/,
         use: [
           {
-            // creates style nodes from JS strings
-            loader: "style-loader",
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
             options: {
-              sourceMap: true
+              minimize: true
             }
           },
           {
-            // translates CSS into CommonJS
-            loader: "css-loader",
-            options: {
-              sourceMap: true
-            }
+            loader: "sass-loader"
           }
         ]
       }
       ,
       {
-        // Load all images as base64 encoding if they are smaller than 8192 bytes
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpe?g|gif)$/,
         use: [
           {
             loader: 'url-loader',
             options: {
-              // On development we want to see where the file is coming from, hence we preserve the [path]
               name: '[path][name].[ext]?hash=[hash:20]',
               limit: 8192
             }
