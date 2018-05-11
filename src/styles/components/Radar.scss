@@ -1,0 +1,97 @@
+.air-radar {
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  &__grid {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: setColorOpacity(color('secondary'), .5);
+  }
+  &__circle {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    $growth: 15;
+    &-item {
+      width: $growth * 1rem;
+      height: $growth * 1rem;
+      border: .1rem solid setColorOpacity(color('tertiary'), .25);
+      display: block;
+      position: absolute;
+      border-radius: 50%;
+      @for $i from 1 to 20 {
+        &--#{$i} {
+          transform: translate($i * ($growth/2 * 1rem) * -1, $i * ($growth/2 * 1rem) * -1);
+          width: $i * $growth * 1rem;
+          height: $i * $growth * 1rem;
+        }
+      }
+    }
+  }
+  &__axis {
+    position: absolute;
+    background-color: setColorOpacity(color('tertiary'), .10);
+    &--y {
+      width: .1rem;
+      height: 100%;
+    }
+    &--x {
+      width: 100%;
+      height: .1rem;
+    }
+  }
+  &__canvas {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(1 , -1);
+  }
+  &__object {
+    --axis-x: 0;
+    --axis-y: 0;
+    --rotation: 90deg;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    &-item {
+      width: 5px;
+      height: 5px;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translate(calc(var(--axis-x) - 2.5px), calc(var(--axis-y) - 2.5px));
+    }
+  }
+
+  &--solid {
+    background-color: color('primary');
+  }
+  &--satellite {
+    background: url('../assets/satellite.jpg') no-repeat center center;
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: setColorOpacity(color('primary'), .5);
+    }
+  }
+}

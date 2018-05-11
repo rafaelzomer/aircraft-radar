@@ -1,0 +1,11 @@
+.air-title {
+    text-transform: uppercase;
+    font-weight: font('weight', 'regular');
+    margin: 0;
+    &--primary {
+        font-size: 1.5rem;
+    }
+    &--secondary {
+        font-size: 1.3rem;
+    }
+}

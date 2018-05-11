@@ -1,9 +1,7 @@
+import style from './styles/index.scss';
 
-require('normalize.css/normalize.css');
-require('./styles/index.css');
+//import radar from './radar.js';
 
-import radar from './radar.js';
-
-document.addEventListener("DOMContentLoaded", () => {
-  radar.init();
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//   radar.init();
+// });

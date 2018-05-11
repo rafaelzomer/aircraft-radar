@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --config webpack.dev.js --mode development",
     "build": "webpack --config webpack.prod.js --mode production",
     "publish": "sh publish-to-gh-pages.sh"
@@ -14,10 +13,17 @@
     "url": ""
   },
   "keywords": [],
-  "author": "Rafael Zomer",
+  "author": [
+    "Rafael Zomer",
+    "Mateus Generoso",
+    "Luciano Melo"
+  ],
   "license": "ISC",
   "dependencies": {
-    "normalize.css": "^8.0.0"
+    "autoprefixer": "^8.4.1",
+    "bootstrap-4-grid": "^2.4.0",
+    "normalize.css": "^8.0.0",
+    "sass-loader": "^7.0.1"
   },
   "devDependencies": {
     "ajv": "^6.3.0",
@@ -27,7 +33,6 @@
     "clean-webpack-plugin": "^0.1.19",
     "css-loader": "^0.28.11",
     "cssnano": "^3.10.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "favicons-webpack-plugin": "0.0.8",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.1.0",
@@ -38,7 +43,7 @@
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
-    "webpack": "^4.2.0",
+    "webpack": "^4.6.0",
     "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1"
   }

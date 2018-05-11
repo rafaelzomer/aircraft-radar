@@ -1,0 +1,44 @@
+
+.air-bar {
+    display: grid;
+    grid-template-areas: "header" "body" "footer";
+    grid-template-columns: 100%;
+    grid-template-rows: max-content 1fr max-content;
+    padding-left: $gutter-width;
+    padding-right: $gutter-width;
+    &__header {
+      grid-area: header;
+      padding-top: $gutter-width;
+      padding-bottom: $gutter-width;
+    }
+    &__body {
+      grid-area: body;
+      display: flex;
+      flex-direction: column;
+      padding-top: $gutter-width;
+      padding-bottom: $gutter-width;
+      height: 100%;
+      max-height: 100%;
+    }
+    &__footer {
+      grid-area: footer;
+      vertical-align: top;
+      padding-top: $gutter-width;
+      padding-bottom: $gutter-width;
+      &--divider {
+        border-top: .2rem solid setColorOpacity(color('tertiary'), .25);
+        
+      }
+    }
+    &--left {
+      grid-area: left;
+      background-color: color('secondary');
+    }
+    &--center {
+      grid-area: center;
+    }
+    &--right {
+      grid-area: right;
+      background-color: color('secondary');
+    }
+  }

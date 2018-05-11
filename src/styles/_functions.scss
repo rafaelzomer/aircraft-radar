@@ -1,0 +1,33 @@
+/*
+** Get Colors
+*/
+
+@function color($color-name: 'primary') {
+    @return map-get($colors, $color-name);
+};
+
+/*
+** Get Font
+*/
+
+@function font($prop-name, $weight: 'regular') {
+    @if($prop-name == 'weight'){
+        @return map-get(map-get($font, 'weight'), $weight);
+    }
+
+    @if map-has-key($font, $prop-name) {
+        @return map-get($font, $prop-name);
+    }
+
+    @else {
+        @warn 'Font propertie undefined: #{$prop-name}'
+    }
+};
+
+/*
+** Color opacity
+*/
+
+@function setColorOpacity($hex-color, $opacity: 1){
+    @return rgba($hex-color, $opacity);
+}

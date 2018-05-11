@@ -1,0 +1,26 @@
+.air-section {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  &__header {
+    height: auto;
+    padding-top: 1rem;
+    padding-bottom: .25rem;
+  }
+  &__body {
+    height: 0;
+    flex: 1 1 auto;
+    overflow-x: hidden;
+  }
+  $i: 100;
+  @while $i>0 {
+    &--#{$i} {
+      height: $i * 1%;
+    }
+    $i: $i - 5;
+  }
+  &--divider {
+    border-top: .2rem solid setColorOpacity(color('tertiary'), .25);
+  }
+}

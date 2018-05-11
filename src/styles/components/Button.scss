@@ -1,0 +1,33 @@
+.air-button {
+  border-radius: 2px;
+  border-style: solid;
+  border-width: 0;
+  color: color('tertiary');
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  font-size: 1rem;
+  padding: .5rem;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  &:active {
+    transform: scale(.95);
+  }
+  &--primary {
+    background-color: setColorOpacity(color('tertiary'), .25);
+    &:hover,
+    &:focus {
+      background-color: setColorOpacity(color('tertiary'), .50);
+    }
+  }
+  &--secondary {
+    background-color: transparent;
+    &:hover,
+    &:focus {
+      background-color: setColorOpacity(color('tertiary'), .15);
+    }
+  }
+}

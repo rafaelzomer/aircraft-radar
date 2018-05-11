@@ -1,0 +1,40 @@
+.air-checkbox {
+    vertical-align: middle;
+    margin-right: .5rem;
+    input {
+        display: none;
+    }
+    label {
+        cursor: pointer;
+        position: relative;
+        &:before {
+            content: "";
+            width: 1rem;
+            height: 1rem;
+            display: inline-block;
+            border: .15rem solid color('tertiary');
+            border-radius: 2px;
+        }
+    }
+
+    input:checked + label {
+        &:before {
+            background-color: color('tertiary');
+        }
+        &:after {
+            content: "check";
+            color: color('secondary');
+            position: absolute;
+            top: -.05rem;
+            left: 0;
+            font-family: font('icon');
+            font-style: normal;
+            font-weight: font('weight', 'extrabold');
+            text-transform: none;
+        }
+    }
+
+    &--inline {
+        display: inline-block;
+    }
+}
