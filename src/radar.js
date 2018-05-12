@@ -1,4 +1,4 @@
-import canvas from './canvas.js';
+import {AirList} from './ui.js';
 import collision from './collision.js';
 import Plane from './Plane.js';
 import Background from './Background.js';
@@ -24,6 +24,8 @@ export default {
     planes[2] = new Plane(-250, -250, 90, "WT-2341", 4000);
     planes[3] = new Plane(145, 145, 256, "WT-2341", 4000);
     planes[4] = new Plane(0, 0, 3, "WT-2341", 4000);
+
+    
     canvas.addObject(planes[0]);
     // canvas.addObject(planes[1]);
     // canvas.addObject(planes[2]);
