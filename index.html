@@ -42,62 +42,9 @@
             </div>
           </div>
         </li>
-        <li class="air-radar__object-item" style="--axis-x:100px; --axis-y:100px; --rotation:0">
-          <div class="air-plane">
-            <div class="air-plane__icon">
-              <i class="material-icons">airplanemode_online</i>
-            </div>
-            <div class="air-plane__desc">
-              WT-9776
-              y99999
-              x99999
-              v99999
-            </div>
-          </div>
-        </li>
-        <li class="air-radar__object-item" style="--axis-x:-100px; --axis-y:100px; --rotation:0">
-          <div class="air-plane">
-            <div class="air-plane__icon">
-              <i class="material-icons">airplanemode_online</i>
-            </div>
-            <div class="air-plane__desc">
-              WT-9776
-              y99999
-              x99999
-              v99999
-            </div>
-          </div>
-        </li>
-        <li class="air-radar__object-item" style="--axis-x:100px; --axis-y:-100px; --rotation:0">
-          <div class="air-plane">
-            <div class="air-plane__icon">
-              <i class="material-icons">airplanemode_online</i>
-            </div>
-            <div class="air-plane__desc">
-              WT-9776
-              y99999
-              x99999
-              v99999
-            </div>
-          </div>
-        </li>
-        <li class="air-radar__object-item" style="--axis-x:-100px; --axis-y:-100px; --rotation:0">
-          <div class="air-plane">
-            <div class="air-plane__icon">
-              <i class="material-icons">airplanemode_online</i>
-            </div>
-            <div class="air-plane__desc">
-              WT-9776
-              y99999
-              x99999
-              v99999
-            </div>
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
-  <main class="air-container hide">
+  <main class="air-container">
     <section class="air-bar air-bar--left">
       <header class="air-bar__header">
         <h1 class="air-title air-title--primary">Controle Aéreo Brasileiro</h1>
@@ -113,7 +60,7 @@
             <List></List>
           </section>
         </section>
-        <section class="air-section air-section--divider air-section--30">
+        <section id="panelTransform" hidden class="air-section air-section--divider air-section--30">
           <header class="air-section__header">
             <h3 class="air-title air-title--secondary">
               Transformações
@@ -121,9 +68,9 @@
           </header>
           <section class="air-section__body">
             <ul class="air-tab">
-              <li class="air-tab__item air-tab__item--active">Translação</li>
-              <li class="air-tab__item">Escalonamento</li>
-              <li class="air-tab__item">Rotação</li>
+              <li class="ellipsis air-tab__item air-tab__item--active">Translação</li>
+              <li class="ellipsis air-tab__item">Escalonamento</li>
+              <li class="ellipsis air-tab__item">Rotação</li>
             </ul>
             <section class="air-tab__content">
               <div class="row">
@@ -176,7 +123,7 @@
             <div class="air-report"></div>
           </section>
         </section>
-        <section class="air-section air-section--30">
+        <section id="panelConfig" class="air-section air-section--30">
           <header class="air-section__header">
             <h3 class="air-title air-title--secondary">
               Rastreamento

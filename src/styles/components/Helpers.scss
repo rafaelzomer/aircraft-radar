@@ -14,6 +14,8 @@
   display: block;
 }
 
-.hide {
+.hide,
+[hidden=""],
+[hidden="true"], {
   display: none
 }
