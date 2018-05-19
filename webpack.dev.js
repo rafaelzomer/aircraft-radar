@@ -34,8 +34,7 @@ module.exports = {
             loader: "sass-loader"
           }
         ]
-      }
-      ,
+      },
       {
         test: /\.(png|jpe?g|gif)$/,
         use: [
@@ -44,6 +43,17 @@ module.exports = {
             options: {
               name: '[path][name].[ext]?hash=[hash:20]',
               limit: 8192
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(html)$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              minimize: true
             }
           }
         ]
