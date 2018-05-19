@@ -13,7 +13,7 @@
     "url": ""
   },
   "keywords": [],
-  "author": [
+  "authors": [
     "Rafael Zomer",
     "Mateus Generoso",
     "Luciano Melo"
@@ -22,6 +22,7 @@
   "dependencies": {
     "autoprefixer": "^8.4.1",
     "bootstrap-4-grid": "^2.4.0",
+    "moment": "^2.22.1",
     "normalize.css": "^8.0.0"
   },
   "devDependencies": {

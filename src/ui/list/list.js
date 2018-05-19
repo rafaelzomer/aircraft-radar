@@ -1,4 +1,4 @@
-import Util from '../../../utils';
+import Util from '../utils';
 import tableTemplate from './table.template.html';
 
 let list = document.querySelector('List');
