@@ -12,7 +12,7 @@
 
 <body>
   <!-- <canvas id="canvas" width="800" height="600">Sorry, your browser doesn't support Canvas element.</canvas> -->
-  <div class="air-radar air-radar--solid">
+  <div class="air-radar air-radar--satellite">
     <div class="air-radar__grid">
       <ul class="air-radar__circle">
         <li class="air-radar__circle-item air-radar__circle-item--1"></li>
@@ -28,8 +28,8 @@
       <div class="air-radar__axis air-radar__axis--x"></div>
     </div>
     <div class="air-radar__canvas">
-      <ul class="air-radar__object">
-        <li class="air-radar__object-item" style="--axis-x:0px; --axis-y:0px; --rotation:45deg">
+      <Radar class="air-radar__object">
+        <!-- <li class="air-radar__object-item" style="--axis-x:0px; --axis-y:0px; --rotation:45deg">
           <div class="air-plane">
             <div class="air-plane__icon">
               <i class="material-icons">airplanemode_online</i>
@@ -41,7 +41,8 @@
               v99999
             </div>
           </div>
-        </li>
+        </li> -->
+      </Radar>
     </div>
   </div>
   <main class="air-container">
@@ -108,7 +109,10 @@
             <h2 class="air-title air-title--primary">CGH</h2>
           </div>
           <div class="col text-right">
-            <h2 class="air-title air-title--primary">01/01/2018 15:35:30</h2>
+            <Time class="air-time air-title air-title--primary">
+              <span class="air-time__date">01/01/2018</span>
+              <span class="air-time__hour">15:35:30</span>
+            </Time>
           </div>
         </div>
       </header>
@@ -120,7 +124,9 @@
             </h3>
           </header>
           <section class="air-section__body">
-            <div class="air-report"></div>
+            <div class="air-report">
+              <Report></Report>
+            </div>
           </section>
         </section>
         <section id="panelConfig" class="air-section air-section--30">

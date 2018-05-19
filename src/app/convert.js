@@ -6,9 +6,9 @@ export default {
     var angleSum = 0;
     if (x < 0 && y > 0) { //Segundo quadrante
       angleSum = 90;
-    } else if (x < 0 && y < 0) { //Segundo quadrante
+    } else if (x < 0 && y < 0) { //Terceiro quadrante
       angleSum = 180;
-    } else if (x > 0 && y < 0) { //Terceiro quadrante 
+    } else if (x > 0 && y < 0) { //Quarto quadrante 
       angleSum = 270;
     }
     return {
