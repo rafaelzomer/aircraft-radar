@@ -2,7 +2,7 @@ import List from '../list';
 import EventEmitter from '../../polyfill/emitter';
 import checkbox from '../checkbox';
 import time from '../time';
-
+import tabs from '../tabs';
 
 // let planes = [];
 
@@ -120,6 +120,7 @@ import time from '../time';
 function Ui() {
   var _objects = [];
   function _init() {
+    tabs.render();
     setInterval(() => {
       time.update();
     }, 100);

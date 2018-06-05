@@ -11,7 +11,6 @@
 </head>
 
 <body>
-  <!-- <canvas id="canvas" width="800" height="600">Sorry, your browser doesn't support Canvas element.</canvas> -->
   <div class="air-radar air-radar--solid">
     <div class="air-radar__grid">
       <ul class="air-radar__circle">
@@ -29,19 +28,6 @@
     </div>
     <div class="air-radar__canvas">
       <Radar class="air-radar__object">
-        <!-- <li class="air-radar__object-item" style="--axis-x:0px; --axis-y:0px; --rotation:45deg">
-          <div class="air-plane">
-            <div class="air-plane__icon">
-              <i class="material-icons">airplanemode_online</i>
-            </div>
-            <div class="air-plane__desc">
-              WT-9776
-              y99999
-              x99999
-              v99999
-            </div>
-          </div>
-        </li> -->
       </Radar>
     </div>
   </div>
@@ -51,7 +37,7 @@
         <h1 class="air-title air-title--primary">Controle Aéreo Brasileiro</h1>
       </header>
       <section class="air-bar__body">
-        <section class="air-section air-section--70">
+        <section class="air-section air-section--60">
           <header class="air-section__header">
             <h3 class="air-title air-title--secondary">
               Aeronaves
@@ -61,36 +47,36 @@
             <List></List>
           </section>
         </section>
-        <section id="panelTransform" hidden class="air-section air-section--divider air-section--30">
+        <section id="panelTransform" class="air-section air-section--divider air-section--40">
           <header class="air-section__header">
             <h3 class="air-title air-title--secondary">
               Transformações
             </h3>
           </header>
           <section class="air-section__body">
-            <ul class="air-tab">
-              <li class="ellipsis air-tab__item air-tab__item--active">Translação</li>
-              <li class="ellipsis air-tab__item">Escalonamento</li>
-              <li class="ellipsis air-tab__item">Rotação</li>
-            </ul>
-            <section class="air-tab__content">
-              <div class="row">
-                <div class="col">
-                  <label for="" class="air-label">Eixo X</label>
-                  <input type="text" class="air-input" />
+            <Tabset>
+              <Tab title="Translação">
+                <div class="row">
+                  <div class="col">
+                    <label for="" class="air-label">Eixo X</label>
+                    <input type="text" class="air-input" />
+                  </div>
+                  <div class="col">
+                    <label for="" class="air-label">Eixo Y</label>
+                    <input type="text" class="air-input" />
+                  </div>
                 </div>
-                <div class="col">
-                  <label for="" class="air-label">Eixo Y</label>
-                  <input type="text" class="air-input" />
+                <div class="row">
+                  <div class="col">
+                    <button class="air-button air-button--primary">Translandar</button>
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <button class="air-button air-button--primary">Translandar</button>
-                </div>
-              </div>
-            </section>
-          </section>
+              </Tab>
+              <Tab title="Escalonamento">
+                <h1>Escalonamento</h1>
+              </Tab>
+            </Tabset>
+          </section> 
         </section>
       </section>
       <footer class="air-bar__footer air-bar__footer--divider">
@@ -136,13 +122,12 @@
             </h3>
           </header>
           <section class="air-section__body">
-            <ul class="air-tab">
-              <li class="air-tab__item air-tab__item--active">Proximidade</li>
-              <li class="air-tab__item">Colisão</li>
-            </ul>
-            <section class="air-tab__content">
-
-            </section>
+            <Tabset>
+              <Tab title="Proximidade">
+              </Tab>
+              <Tab title="Colisão">
+              </Tab>
+            </Tabset>
           </section>
         </section>
       </section>
