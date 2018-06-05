@@ -1,9 +1,9 @@
-import Util from '../utils';
 import tableTemplate from './table.template.html';
+import uiUtils from '../ui/uiUtils';
 
 let list = document.querySelector('List');
 
-let $table = Util.stringToHtml(tableTemplate);
+let $table = uiUtils.stringToHtml(tableTemplate);
 
 let $header = $table.querySelector('thead');
 

@@ -1,4 +1,6 @@
-import intersection from './intersection.js';
+const RANGE = 2;
+import config from '../config';
+import uiUtils from '../ui/uiUtils';
 
 function _detectInList(planes) {
   var planesWillCollide = [];
@@ -47,6 +49,10 @@ function _distance({
   return result;
 }
 
+function _inRange(next1, next2, cord) {
+  return next1[cord] > next2[cord]-RANGE && next1[cord] < next2[cord]+RANGE;
+}
+
 function _detect(plane1, plane2) {
   var next1 = false;
   var next2 = false;
@@ -55,15 +61,22 @@ function _detect(plane1, plane2) {
     next1 = plane1.nextPosition(plane1.getX(), plane1.getY(), i);
     next2 = plane2.nextPosition(plane2.getX(), plane2.getY(), i);
     var diff = false;
-    if (next1.y == next2.y) {
+    if (_inRange(next1, next2, 'y')) {
       diff = Math.abs(next1.x - next2.x);
     }
-    if (next1.x == next2.x) {
+    if (_inRange(next1, next2, 'x')) {
       diff = Math.abs(next1.y - next2.y);
     }
     if (diff !== false) {
-      if (diff < 30) {
+      if (diff < config.proximity) {
+        var avgX = (next1.x + next2.x) / 2;
+        var avgY = (next1.y + next2.y) / 2;
+        uiUtils.insertDot(avgX, avgY);
         return {
+          collisionPoint: {
+            x: avgX,
+            y: avgY
+          },
           plane1: next1,
           plane2: next2
         };

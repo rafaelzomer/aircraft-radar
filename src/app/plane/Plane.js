@@ -1,14 +1,18 @@
-import Util from '../utils';
-import move from '../../app/move';
-import convert from '../../app/convert';
-import mathUtils from '../../app/mathUtils';
 import planeTemplate from './plane.template.html';
-import config from '../../app/config';
+import move from '../move';
+import convert from '../convert';
+import number from '../number';
+import config from '../config';
+import uiUtils from '../ui/uiUtils';
+
 let Radar = document.querySelector('Radar');
-let $planeTemplate = Util.stringToHtml(planeTemplate);
+let $planeTemplate = uiUtils.stringToHtml(planeTemplate);
 
 function Plane({name, x, y, velocity, rotation}) {
-  name = name || Util.generateHash();
+  if (velocity < config.minVelocity) {
+    throw 'o avião deve estar a mais de ' + config.minVelocity + ' km/h';
+  }
+  name = (name || uiUtils.generateHash()).toUpperCase();
   var props = {name, x, y, velocity, rotation};
   var engineOn = true; 
   let $plane = document.importNode($planeTemplate, true);
@@ -29,12 +33,12 @@ function Plane({name, x, y, velocity, rotation}) {
     $plane.style.setProperty('--axis-x', props.x + 'px');
     $plane.style.setProperty('--axis-y', props.y + 'px');
     $plane.style.setProperty('--rotation', props.rotation + 'deg');
-    $yNode.innerText = 'y' + mathUtils.round(props.y);
-    $xNode.innerText = 'x' + mathUtils.round(props.x);
+    $yNode.innerText = 'y' + number.round(props.y);
+    $xNode.innerText = 'x' + number.round(props.x);
   }
 
   function _renderVelocity() {
-    $velocity.innerText = 'v' + mathUtils.round(props.velocity);
+    $velocity.innerText = number.round(props.velocity)+ ' km/h';
   }
 
   function _renderDescription() {
@@ -49,7 +53,7 @@ function Plane({name, x, y, velocity, rotation}) {
     var nextX = 0;
     var nextY = 0;
     var relativeCord = move.moveToCenter(x, y);
-    var cart = convert.polarToCart(distance, props.rotation);
+    var cart = convert.polarToCart(distance * _getConvertedVelocity(), props.rotation);
     var convertedX = cart.x - relativeCord.x;
     var convertedY = cart.y - relativeCord.y;
     return {
@@ -61,11 +65,15 @@ function Plane({name, x, y, velocity, rotation}) {
   function _engineRunner() {
     setInterval(function() {
       if (engineOn) {
-        var nextPosition = _nextPosition(props.x, props.y, props.velocity);
+        var nextPosition = _nextPosition(props.x, props.y, _getConvertedVelocity());
         props.x = nextPosition.x;
         props.y = nextPosition.y;
       }
     }, config.timeout);
+  }
+
+  function _getConvertedVelocity() {
+    return props.velocity / 400;
   }
 
   function _getX() {

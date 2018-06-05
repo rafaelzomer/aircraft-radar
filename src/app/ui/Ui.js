@@ -1,8 +1,7 @@
-import Util from './utils';
-import List from './list/list.js';
-import EventEmitter from '../polyfill/emitter';
-import checkbox from './checkbox/checkbox.js';
-import time from './time/time';
+import List from '../list';
+import EventEmitter from '../../polyfill/emitter';
+import checkbox from '../checkbox';
+import time from '../time';
 
 
 // let planes = [];

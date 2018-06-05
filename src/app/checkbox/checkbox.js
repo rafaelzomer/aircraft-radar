@@ -1,7 +1,7 @@
-import Util from '../utils';
 import template from './checkbox.template.html';
+import uiUtils from '../ui/uiUtils';
 
-let checkbox = Util.stringToHtml(template);
+let checkbox = uiUtils.stringToHtml(template);
 
 let input = checkbox.querySelector('input');
 let label = checkbox.querySelector('label');
@@ -18,7 +18,6 @@ function getNode(){
 
 function setId(value){
   label.htmlFor = input.id = 'chbx-' + value;
-
 }
 
 export default {
