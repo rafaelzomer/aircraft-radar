@@ -4,6 +4,7 @@ import checkbox from '../checkbox';
 import time from '../time';
 import tabs from '../tabs';
 import Plane from '../plane/plane';
+import convert from '../convert';
 
 // let planes = [];
 
@@ -168,24 +169,45 @@ function Ui() {
 
   function _addPlane() {
 
-    _validate([$inPlaneDesc, $inPlaneX, $inPlaneY, $inPlaneAngle, $inPlaneRadius, $inPlaneVelocity, $inPlaneDirection]);
+    for (let i = 0; i < 10; i++) {
+      var x = Math.floor(Math.random() * 600) - 300;
+      var y = Math.floor(Math.random() * 600) - 300;
+      var rotation = Math.floor(Math.random() * 360) + 1;
+      var plan = new Plane({
+        velocity: 380,
+        x,
+        y,
+        rotation
+      });
+      _add(plan);
+      List.addPlane(plan);
+    }
 
+    _validate([$inPlaneDesc, $inPlaneVelocity, $inPlaneDirection]);
+
+    var cart = {
+      x: new Number($inPlaneX.value),
+      y: new Number($inPlaneY.value)
+    }
+    if ($inPlaneRadius.value && $inPlaneAngle.value) {
+      cart = convert.polarToCart($inPlaneRadius.value, $inPlaneAngle.value);
+    }
     let plane = new Plane({
       name: new String($inPlaneDesc.value),
       velocity: new Number($inPlaneVelocity.value),
-      x: new Number($inPlaneX.value),
-      y: new Number($inPlaneY.value),
-      angle: new Number($inPlaneAngle.value),
-      radius: new Number($inPlaneRadius.value),
-      direction: new Number($inPlaneDirection.value)
+      x: cart.x,
+      y: cart.y,
+      rotation: new Number($inPlaneDirection.value)
     });
-
+    plane.toggleEngine();
     _add(plane);
   }
 
   function _validate(inputs) {
     inputs.map(el => {
       if (el.hasAttribute('required') && el.value == '') {
+        var label = document.querySelector('[for="'+el.id+'"]');
+        alert('Campo ' + label.innerText + ' é obrigatório');
         throw new Error('Campo ' + el.id + ' é obrigatório')
       }
     })

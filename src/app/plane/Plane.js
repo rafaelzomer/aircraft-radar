@@ -9,6 +9,7 @@ let Radar = document.querySelector('Radar');
 let $planeTemplate = uiUtils.stringToHtml(planeTemplate);
 
 function Plane({name, x, y, velocity, rotation}) {
+  var id = uiUtils.generateHash();
   if (velocity < config.minVelocity) {
     throw 'o avião deve estar a mais de ' + config.minVelocity + ' km/h';
   }
@@ -88,11 +89,36 @@ function Plane({name, x, y, velocity, rotation}) {
     return props.name;
   }
 
+  function _getId() {
+    return id;
+  }
+
+  function _getRadius() {
+    return number.round(convert.cartToPolar(_getX(), _getY()).r);
+  }
+
+  function _getAngle() {
+    return number.round(convert.cartToPolar(_getX(), _getY()).a);
+  }
+
+  function _getRotation() {
+    return number.round(props.rotation);
+  }
+
+  function _getVelocity() {
+    return number.round(props.velocity);
+  }
+
   _init();
   return {
     getX: _getX,
     getY: _getY,
     getName: _getName,
+    getId: _getId,
+    getRadius: _getRadius,
+    getAngle: _getAngle,
+    getRotation: _getRotation,
+    getVelocity: _getVelocity,
     render: _render,
     toggleEngine: _toggleEngine,
     nextPosition: _nextPosition

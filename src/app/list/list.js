@@ -1,5 +1,7 @@
 import tableTemplate from './table.template.html';
 import uiUtils from '../ui/uiUtils';
+import checkbox from '../checkbox';
+const ROWS = [];
 
 let list = document.querySelector('List');
 
@@ -33,7 +35,7 @@ function _setHeader(cols) {
 
 function _render() {
   clean($body);
-  this.rows.map(r => {
+  ROWS.map(r => {
     let row = document.createElement("tr");
 
     r.map(c => {
@@ -76,14 +78,66 @@ function _render() {
   list.appendChild($table);
 }
 
+function _addPlane(plane) {
+  let span = document.createElement('span');
+  span.className = 'ellipsis';
+  span.innerText = plane.getName();
+  checkbox.setId(plane.getId());
+  _addRow([{
+      type: 'element',
+      value: checkbox.getNode()
+    },
+    {
+      type: 'element',
+      value: document.importNode(span, true)
+    },
+    {
+      value: plane.getX(),
+      attrs: {
+        className: 'text-center'
+      }
+    },
+    {
+      value: plane.getY(),
+      attrs: {
+        className: 'text-center'
+      }
+    },
+    {
+      value: plane.getRadius(),
+      attrs: {
+        className: 'text-center'
+      }
+    },
+    {
+      value: plane.getAngle(),
+      attrs: {
+        className: 'text-center'
+      }
+    },
+    {
+      value: plane.getRotation(),
+      attrs: {
+        className: 'text-center'
+      }
+    },
+    {
+      value: plane.getVelocity(),
+      attrs: {
+        className: 'text-center'
+      }
+    }
+  ]);
+}
+
 function _addRow(row) {
-  this.rows.push(row);
-  this.render();
+  ROWS.push(row);
+  _render();
 }
 
 export default {
-  rows: [],
   render: _render,
+  addPlane: _addPlane,
   addRow: _addRow,
   setHeader: _setHeader
 }

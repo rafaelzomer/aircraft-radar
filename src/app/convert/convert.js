@@ -19,6 +19,8 @@ export default {
     }
   },
   polarToCart: function(r, a) {
+    a = new Number(a);
+    r = new Number(r);
     var angleInRadians = number.degreesToRadians(a);
     var xMult = number.round(Math.cos(angleInRadians));
     var yMult = number.round(Math.sin(angleInRadians));
