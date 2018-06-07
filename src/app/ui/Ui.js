@@ -3,6 +3,7 @@ import EventEmitter from '../../polyfill/emitter';
 import checkbox from '../checkbox';
 import time from '../time';
 import tabs from '../tabs';
+import Plane from '../plane/plane';
 
 // let planes = [];
 
@@ -119,15 +120,79 @@ import tabs from '../tabs';
 
 function Ui() {
   var _objects = [];
+
+  // Panels
+  let $pnRegister = document.querySelector('#panelRegister');
+  let $pnTransform = document.querySelector('#panelTransform');
+
+  // Buttons
+  let $btnAdd = document.querySelector('#btnAdd');
+  let $btnSave = document.querySelector('#btnSave');
+  let $btnCancelAdd = document.querySelector('#btnCancelAdd');
+
+  // Inputs
+  let $inPlaneDesc = document.querySelector('#inPlaneDesc');
+  let $inPlaneX = document.querySelector('#inPlaneX');
+  let $inPlaneY = document.querySelector('#inPlaneY');
+  let $inPlaneAngle = document.querySelector('#inPlaneAngle');
+  let $inPlaneRadius = document.querySelector('#inPlaneRadius');
+  let $inPlaneVelocity = document.querySelector('#inPlaneVelocity');
+  let $inPlaneDirection = document.querySelector('#inPlaneDirection');
+
+  //Group Buttons
+  let $groupBtnPlane = document.querySelector('#groupBtnPlane');
+  let $groupBtnPlaneRegister = document.querySelector('#groupBtnPlaneRegister');
+
   function _init() {
+    $btnAdd.addEventListener('click', _showRegister, false);
+    $btnCancelAdd.addEventListener('click', _hideRegister, false);
+    $btnSave.addEventListener('click', _addPlane, false);
+
     tabs.render();
     setInterval(() => {
       time.update();
     }, 100);
   }
 
+  function _hideRegister(e) {
+    $pnRegister.classList.add('hide');
+    $groupBtnPlane.classList.remove('hide');
+    $groupBtnPlaneRegister.classList.add('hide');
+  }
+
+  function _showRegister(e) {
+    $pnRegister.classList.remove('hide');
+    $groupBtnPlane.classList.add('hide');
+    $groupBtnPlaneRegister.classList.remove('hide');
+  }
+
+  function _addPlane() {
+
+    _validate([$inPlaneDesc, $inPlaneX, $inPlaneY, $inPlaneAngle, $inPlaneRadius, $inPlaneVelocity, $inPlaneDirection]);
+
+    let plane = new Plane({
+      name: new String($inPlaneDesc.value),
+      velocity: new Number($inPlaneVelocity.value),
+      x: new Number($inPlaneX.value),
+      y: new Number($inPlaneY.value),
+      angle: new Number($inPlaneAngle.value),
+      radius: new Number($inPlaneRadius.value),
+      direction: new Number($inPlaneDirection.value)
+    });
+
+    _add(plane);
+  }
+
+  function _validate(inputs) {
+    inputs.map(el => {
+      if (el.hasAttribute('required') && el.value == '') {
+        throw new Error('Campo ' + el.id + ' é obrigatório')
+      }
+    })
+  }
+
   function _add(object) {
-    if (!object){
+    if (!object) {
       throw 'object is mandatory';
     }
     if (typeof object.render !== 'function') {
@@ -135,7 +200,7 @@ function Ui() {
     }
     _objects.push(object);
   }
-  
+
   function _update() {
     for (let i = 0; i < _objects.length; i++) {
       const obj = _objects[i];
@@ -143,8 +208,13 @@ function Ui() {
     }
   }
 
+  function _getPlanes() {
+    return _objects;
+  }
+
   _init();
   return {
+    getPlanes: _getPlanes,
     add: _add,
     update: _update
   }

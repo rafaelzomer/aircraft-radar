@@ -19,3 +19,13 @@
     }
 
 }
+
+.air-input-group {
+  display: flex;
+  align-items: stretch;
+  &__addon {
+    padding: .5rem;
+    background-color: setColorOpacity(color('tertiary'), .20);
+  }
+  
+}

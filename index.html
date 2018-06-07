@@ -47,7 +47,7 @@
             <List></List>
           </section>
         </section>
-        <section id="panelTransform" class="air-section air-section--divider air-section--40">
+        <section id="panelTransform" class="air-section air-section--divider air-section--40 hide">
           <header class="air-section__header">
             <h3 class="air-title air-title--secondary">
               Transformações
@@ -73,18 +73,100 @@
                 </div>
               </Tab>
               <Tab title="Escalonamento">
-                <h1>Escalonamento</h1>
+                <div class="row">
+                  <div class="col">
+                    <label for="" class="air-label">Eixo X</label>
+                    <input type="text" class="air-input" />
+                  </div>
+                  <div class="col">
+                    <label for="" class="air-label">Eixo Y</label>
+                    <input type="text" class="air-input" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button class="air-button air-button--primary">Escalonar</button>
+                  </div>
+                </div>
+              </Tab>
+              <Tab title="Rotação">
+                <div class="row">
+                  <div class="col">
+                    <label for="" class="air-label">Ângulo</label>
+                    <input type="text" class="air-input" />
+                  </div>
+                  <div class="col">
+                    <label for="" class="air-label">Eixo X</label>
+                    <input type="text" class="air-input" />
+                  </div>
+                  <div class="col">
+                    <label for="" class="air-label">Eixo Y</label>
+                    <input type="text" class="air-input" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <button class="air-button air-button--primary">Rotacionar</button>
+                  </div>
+                </div>s
               </Tab>
             </Tabset>
-          </section> 
+          </section>
+        </section>
+        <section id="panelRegister" class="air-section air-section--divider air-section--40 hide">
+          <header class="air-section__header">
+            <h3 class="air-title air-title--secondary">
+              Aeronave
+            </h3>
+          </header>
+          <section class="air-section__body">
+            <div class="row">
+              <div class="col">
+                <label for="inPlaneDesc" class="air-label">Descrição</label>
+                <input id="inPlaneDesc" type="text" class="air-input" required/>
+              </div>
+              <div class="col col-2">
+                <label for="inPlaneX" class="air-label">Eixo X</label>
+                <input id="inPlaneX" type="text" class="air-input" required/>
+              </div>
+              <div class="col col-2">
+                <label for="inPlaneY" class="air-label">Eixo Y</label>
+                <input id="inPlaneY" type="text" class="air-input" required/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="inPlaneAngle" class="air-label">Ângulo</label>
+                <input id="inPlaneAngle" type="text" class="air-input" required/>
+              </div>
+              <div class="col">
+                <label for="inPlaneRadius" class="air-label">Raio</label>
+                <input id="inPlaneRadius" type="text" class="air-input" required/>
+              </div>
+              <div class="col">
+                <label for="inPlaneVelocity" class="air-label">Velocidade</label>
+                <input id="inPlaneVelocity" type="text" class="air-input" required/>
+              </div>
+              <div class="col">
+                <label for="inPlaneDirection" class="air-label">Direção</label>
+                <input id="inPlaneDirection" type="text" class="air-input" required/>
+              </div>
+            </div>
+          </section>
         </section>
       </section>
       <footer class="air-bar__footer air-bar__footer--divider">
-        <button class="air-button air-button--primary" title="Adicionar aeronave">
-          <i class="material-icons">add</i>
-          Aeronave
-        </button>
-        <button class="air-button air-button--secondary" title="Excluir aeronave">Excluir</button>
+        <div id="groupBtnPlane" class="">
+          <button id="btnAdd" class="air-button air-button--primary" title="Adicionar aeronave">
+            <i class="material-icons">add</i>
+            Aeronave
+          </button>
+          <button class="air-button air-button--secondary" title="Excluir aeronave">Excluir</button>
+        </div>
+        <div id="groupBtnPlaneRegister" class="hide">
+          <button id="btnSave" class="air-button air-button--primary" title="Salvar aeronave">Salvar</button>
+          <button id="btnCancelAdd" class="air-button air-button--secondary" title="Cancelar cadastro">Cancelar</button>
+        </div>
       </footer>
     </section>
     <section class="air-bar air-bar--center"></section>
@@ -124,8 +206,33 @@
           <section class="air-section__body">
             <Tabset>
               <Tab title="Proximidade">
+                <div class="row">
+                  <div class="col">
+                    <label for="" class="air-label">Distância mín. entre aviões</label>
+                    <div class="air-input-group">
+                      <input type="text" class="air-input" />
+                      <span class="air-input-group__addon">metros</span>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <label for="" class="air-label">Próximidade mín. do aeroporto</label>
+                    <div class="air-input-group">
+                      <input type="text" class="air-input" />
+                      <span class="air-input-group__addon">metros</span>
+                    </div>
+                  </div>
+                </div>
               </Tab>
               <Tab title="Colisão">
+                <div class="row">
+                  <div class="col">
+                    <label for="" class="air-label">Tempo mínimo</label>
+                    <div class="air-input-group">
+                      <input type="text" class="air-input" />
+                      <span class="air-input-group__addon">segundos</span>
+                    </div>
+                  </div>
+                </div>
               </Tab>
             </Tabset>
           </section>

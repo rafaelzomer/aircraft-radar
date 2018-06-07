@@ -30,7 +30,6 @@ function render() {
     let $tabsetHeader = $tabset.querySelector('.air-tab');
     let $tabsetContent = $tabset.querySelector('.air-tab__content');
     var TABS = [];
-    console.log('tabset', tabset);
     let $tabList = tabset.querySelectorAll('Tab');
     let i = 0;
     $tabList.forEach(tabInfo => {
