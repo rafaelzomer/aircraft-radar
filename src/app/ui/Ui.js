@@ -10,47 +10,6 @@ import convert from '../convert';
 
 // function makeListHeader(){
 
-//   List.setHeader([{
-//     text: "",
-//     attrs: {
-//       width: 30
-//     }
-//   }, {
-//     text: "Identificação",
-//     attrs: {
-//       width: 110
-//     }
-//   }, {
-//     text: "x",
-//     attrs: {
-//       className: 'text-center'
-//     }
-//   }, {
-//     text: "y",
-//     attrs: {
-//       className: 'text-center'
-//     }
-//   }, {
-//     text: "r",
-//     attrs: {
-//       className: 'text-center'
-//     }
-//   }, {
-//     text: "a",
-//     attrs: {
-//       className: 'text-center'
-//     }
-//   }, {
-//     text: "v",
-//     attrs: {
-//       className: 'text-center'
-//     }
-//   }, {
-//     text: "d",
-//     attrs: {
-//       className: 'text-center'
-//     }
-//   }]);
 // }
 
 // function init() {
@@ -145,6 +104,8 @@ function Ui() {
   let $groupBtnPlaneRegister = document.querySelector('#groupBtnPlaneRegister');
 
   function _init() {
+
+    _makeHeader();
     $btnAdd.addEventListener('click', _showRegister, false);
     $btnCancelAdd.addEventListener('click', _hideRegister, false);
     $btnSave.addEventListener('click', _addPlane, false);
@@ -153,6 +114,50 @@ function Ui() {
     setInterval(() => {
       time.update();
     }, 100);
+  }
+
+  function _makeHeader(){
+    List.setHeader([{
+      text: "",
+      attrs: {
+        width: 30
+      }
+    }, {
+      text: "Identificação",
+      attrs: {
+        width: 110
+      }
+    }, {
+      text: "x",
+      attrs: {
+        className: 'text-center'
+      }
+    }, {
+      text: "y",
+      attrs: {
+        className: 'text-center'
+      }
+    }, {
+      text: "r",
+      attrs: {
+        className: 'text-center'
+      }
+    }, {
+      text: "a",
+      attrs: {
+        className: 'text-center'
+      }
+    }, {
+      text: "v",
+      attrs: {
+        className: 'text-center'
+      }
+    }, {
+      text: "d",
+      attrs: {
+        className: 'text-center'
+      }
+    }]);
   }
 
   function _hideRegister(e) {
