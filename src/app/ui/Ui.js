@@ -1,94 +1,29 @@
 import List from '../list';
 import EventEmitter from '../../polyfill/emitter';
-import checkbox from '../checkbox';
+import Radio from '../radio';
 import time from '../time';
-import tabs from '../tabs';
+import Tabs from '../tabs';
 import Plane from '../plane/plane';
 import convert from '../convert';
 
-// let planes = [];
-
-// function makeListHeader(){
-
-// }
-
-// function init() {
-//   EventEmitter.run();
-//   makeListHeader();
-
-//   return this;
-// }
-
-// function setPlanes(planes){
-//   this.planes = planes;
-
-//   this.planes.map(p => {
-//     p.hash = Util.generateHash();
-//     checkbox.setId(p.hash);
-//     let span = document.createElement('span');
-//     span.className = 'ellipsis';
-//     span.innerText = p.id;
-
-//     List.addRow([{
-//         type: 'element',
-//         value: checkbox.getNode()
-//       },
-//       { 
-//         type: 'element',
-//         value: document.importNode(span, true)
-//       },
-//       {
-//         value: p.x,
-//         attrs: {
-//           className: 'text-center'
-//         }
-//       },
-//       {
-//         value: p.y,
-//         attrs: {
-//           className: 'text-center'
-//         }
-//       },
-//       {
-//         value: p.r,
-//         attrs: {
-//           className: 'text-center'
-//         }
-//       },
-//       {
-//         value: p.a,
-//         attrs: {
-//           className: 'text-center'
-//         }
-//       },
-//       {
-//         value: p.d,
-//         attrs: {
-//           className: 'text-center'
-//         }
-//       },
-//       {
-//         value: p.v,
-//         attrs: {
-//           className: 'text-center'
-//         }
-//       }
-//     ]);
-//   })
-// }
-
-
 function Ui() {
   var _objects = [];
+  var _selected = null;
 
   // Panels
   let $pnRegister = document.querySelector('#panelRegister');
   let $pnTransform = document.querySelector('#panelTransform');
+  let $pnConfig = document.querySelector('#panelConfig');
 
   // Buttons
   let $btnAdd = document.querySelector('#btnAdd');
   let $btnSave = document.querySelector('#btnSave');
   let $btnCancelAdd = document.querySelector('#btnCancelAdd');
+  let $btnApplyTransform = document.querySelector('#btnApplyTransform');
+  let $btnCancelTransform = document.querySelector('#btnCancelTransform');
+  let $btnConfig = document.querySelector('#btnConfig');
+  let $btnApplyConfig = document.querySelector('#btnApplyConfig');
+  let $btnCancelConfig = document.querySelector('#btnCancelConfig');
 
   // Inputs
   let $inPlaneDesc = document.querySelector('#inPlaneDesc');
@@ -102,18 +37,104 @@ function Ui() {
   //Group Buttons
   let $groupBtnPlane = document.querySelector('#groupBtnPlane');
   let $groupBtnPlaneRegister = document.querySelector('#groupBtnPlaneRegister');
+  let $groupBtnPlaneTransform = document.querySelector('#groupBtnPlaneTransform');
+  let $groupBtnConfig = document.querySelector('#groupBtnConfig');
 
   function _init() {
 
     _makeHeader();
-    $btnAdd.addEventListener('click', _showRegister, false);
-    $btnCancelAdd.addEventListener('click', _hideRegister, false);
-    $btnSave.addEventListener('click', _addPlane, false);
+    Tabs.render();
 
-    tabs.render();
     setInterval(() => {
       time.update();
     }, 100);
+
+    _registerListeners();
+  }
+
+  function _applyTransform(){
+    let currentTab = Tabs.getActiveTab($pnTransform).innerText;
+
+    switch(currentTab){
+      case 'TRANSLAÇÃO':
+        _setTranslation();
+        break;
+      case 'ESCALONAMENTO':
+        _setScaling();
+        break;
+      case 'ROTAÇÃO':
+        _setRotation();
+        break;
+      default:
+        throw new Error('Transformação não reconhecida');
+    }
+  }
+
+  function _setTranslation(){
+    // TODO: Fórmula translação
+    _selected.setX(0);
+    _selected.setY(0);
+  }
+
+  function _setScaling(){
+    // TODO: Fórmula escala
+    console.log(_selected);
+  }
+
+  function _setRotation(){
+    // TODO: Fórmula rotação
+    console.log('Rotação');
+    console.log(_selected);
+  }
+
+  function _cancelTransform(){
+    $pnTransform.classList.add('hide');
+    $groupBtnPlaneTransform.classList.add('hide');
+    $groupBtnPlane.classList.remove('hide');
+  }
+
+  function _showConfig(){
+    $btnConfig.classList.add('hide');
+    $pnConfig.classList.remove('hide');
+    $groupBtnConfig.classList.remove('hide');
+  }
+
+  function _applyConfig(){
+    // Altera configurações
+  }
+
+  function _cancelConfig(){
+    $btnConfig.classList.remove('hide');
+    $pnConfig.classList.add('hide');
+    $groupBtnConfig.classList.add('hide');
+  }
+
+  function _registerListeners(){
+    EventEmitter.run();
+    
+    $btnAdd.addEventListener('click', _showRegister, false);
+    $btnCancelAdd.addEventListener('click', _hideRegister, false);
+    $btnSave.addEventListener('click', _addPlane, false);
+    $btnApplyTransform.addEventListener('click', _applyTransform, false);
+    $btnCancelTransform.addEventListener('click', _cancelTransform, false);
+    $btnConfig.addEventListener('click', _showConfig, false);
+    $btnApplyConfig.addEventListener('click', _applyConfig, false);
+    $btnCancelConfig.addEventListener('click', _cancelConfig, false);
+
+    window.EventEmitter.on('radio-item:change', function(obj){
+
+      _selected = _getPlaneById(obj.target.getAttribute('data-plane-id'));
+      $pnRegister.classList.add('hide');
+      $pnTransform.classList.remove('hide');
+      $groupBtnPlane.classList.add('hide');
+      $groupBtnPlaneRegister.classList.add('hide');
+      $groupBtnPlaneTransform.classList.remove('hide');
+    });
+  }
+
+  function _getPlaneById(id){
+    return _getPlanes()
+              .filter(plane => plane.getId() == id)[0];
   }
 
   function _makeHeader(){
@@ -123,9 +144,9 @@ function Ui() {
         width: 30
       }
     }, {
-      text: "Identificação",
+      text: "ID",
       attrs: {
-        width: 110
+        width: 55
       }
     }, {
       text: "x",
@@ -167,9 +188,11 @@ function Ui() {
   }
 
   function _showRegister(e) {
+    $pnTransform.classList.add('hide');
     $pnRegister.classList.remove('hide');
     $groupBtnPlane.classList.add('hide');
     $groupBtnPlaneRegister.classList.remove('hide');
+    $groupBtnPlaneTransform.classList.add('hide');
   }
 
   function _addPlane() {
@@ -213,7 +236,7 @@ function Ui() {
       if (el.hasAttribute('required') && el.value == '') {
         var label = document.querySelector('[for="'+el.id+'"]');
         alert('Campo ' + label.innerText + ' é obrigatório');
-        throw new Error('Campo ' + el.id + ' é obrigatório')
+        //throw new Error('Campo ' + el.id + ' é obrigatório')
       }
     })
   }

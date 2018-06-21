@@ -15,7 +15,7 @@ function Plane({name, x, y, velocity, rotation}) {
   }
   name = (name || uiUtils.generateHash()).toUpperCase();
   var props = {name, x, y, velocity, rotation};
-  var engineOn = true; 
+  var engineOn = false; 
   let $plane = document.importNode($planeTemplate, true);
   let $descriptionList = $plane.querySelectorAll('.air-plane__desc div');
   var $description = $descriptionList[0];
@@ -77,8 +77,16 @@ function Plane({name, x, y, velocity, rotation}) {
     return props.velocity / 400;
   }
 
+  function _setX(value){
+    props.x = value;
+  }
+
   function _getX() {
     return props.x;
+  }
+
+  function _setY(value){
+    props.y = value;
   }
 
   function _getY() {
@@ -112,7 +120,9 @@ function Plane({name, x, y, velocity, rotation}) {
   _init();
   return {
     getX: _getX,
+    setX: _setX,
     getY: _getY,
+    setY: _setY,
     getName: _getName,
     getId: _getId,
     getRadius: _getRadius,

@@ -1,6 +1,6 @@
 import tableTemplate from './table.template.html';
 import uiUtils from '../ui/uiUtils';
-import checkbox from '../checkbox';
+import radio from '../radio';
 const ROWS = [];
 
 let list = document.querySelector('List');
@@ -54,8 +54,8 @@ function _render() {
       row.appendChild(cell);
     })
     // let cell = document.createElement("td");
-    // cellCheckbox.appendChild(c);
-    // row.appendChild(cellCheckbox);
+    // cellRadio.appendChild(c);
+    // row.appendChild(cellRadio);
 
 
     // let cellID = document.createElement("td");
@@ -82,10 +82,10 @@ function _addPlane(plane) {
   let span = document.createElement('span');
   span.className = 'ellipsis';
   span.innerText = plane.getName();
-  checkbox.setId(plane.getId());
+  radio.setId(plane.getId());
   _addRow([{
       type: 'element',
-      value: checkbox.getNode()
+      value: radio.getNode()
     },
     {
       type: 'element',

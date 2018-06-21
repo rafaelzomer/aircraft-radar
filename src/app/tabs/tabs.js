@@ -1,17 +1,22 @@
 import tabsetTemplate from './tabset.template.html';
 import tabTemplate from './tab.template.html';
 import uiUtils from '../ui/uiUtils';
+
 const TAB_ACTIVE_CLASS = 'air-tab__item--active';
+
 let Tabset = document.querySelectorAll('Tabset');
 let $tabTemplate = uiUtils.stringToHtml(tabTemplate);
 let $tabsetTemplate = uiUtils.stringToHtml(tabsetTemplate);
 
+function _getActiveTab($container){
+  return $container.querySelector('.' + TAB_ACTIVE_CLASS);
+}
 
 function setActiveTab({
   $tabsetHeader,
   $tabsetContent
 }, TABS, index) {
-  var currentTab = $tabsetHeader.querySelector('.' + TAB_ACTIVE_CLASS);
+  var currentTab = $tabsetHeader.querySelector('.' + TAB_ACTIVE_CLASS);;
   if (currentTab && currentTab.classList) {
     currentTab.classList.remove(TAB_ACTIVE_CLASS);
   }
@@ -23,7 +28,7 @@ function setActiveTab({
   $tabsetContent.innerHTML = '';
   $tabsetContent.appendChild(TABS[index]);
 }
- 
+
 function render() {
   Tabset.forEach(tabset => {
     let $tabset = document.importNode($tabsetTemplate, true);
@@ -58,5 +63,6 @@ function render() {
 }
 
 export default {
-  render
+  render,
+  getActiveTab: _getActiveTab
 };

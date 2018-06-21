@@ -13,6 +13,9 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  .material-icons {
+    margin-right: 5px; 
+  }
   &:active {
     transform: scale(.95);
   }

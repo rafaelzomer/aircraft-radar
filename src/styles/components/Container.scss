@@ -1,7 +1,7 @@
 .air-container {
     display: grid;
     grid-template-areas: "left center right";
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1.2fr 1.6fr 1.2fr;
     grid-template-rows: 100vh;
     position: relative;
     z-index: 20;

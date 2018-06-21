@@ -66,11 +66,6 @@
                     <input type="text" class="air-input" />
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col">
-                    <button class="air-button air-button--primary">Translandar</button>
-                  </div>
-                </div>
               </Tab>
               <Tab title="Escalonamento">
                 <div class="row">
@@ -81,11 +76,6 @@
                   <div class="col">
                     <label for="" class="air-label">Eixo Y</label>
                     <input type="text" class="air-input" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <button class="air-button air-button--primary">Escalonar</button>
                   </div>
                 </div>
               </Tab>
@@ -104,11 +94,6 @@
                     <input type="text" class="air-input" />
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col">
-                    <button class="air-button air-button--primary">Rotacionar</button>
-                  </div>
-                </div>s
               </Tab>
             </Tabset>
           </section>
@@ -167,13 +152,17 @@
           <button id="btnSave" class="air-button air-button--primary" title="Salvar aeronave">Salvar</button>
           <button id="btnCancelAdd" class="air-button air-button--secondary" title="Cancelar cadastro">Cancelar</button>
         </div>
+        <div id="groupBtnPlaneTransform" class="hide">
+          <button id="btnApplyTransform" class="air-button air-button--primary" title="Aplicar transformação">Aplicar</button>
+          <button id="btnCancelTransform" class="air-button air-button--secondary" title="Cancelar transformação">Cancelar</button>
+        </div>
       </footer>
     </section>
     <section class="air-bar air-bar--center"></section>
     <section class="air-bar air-bar--right">
       <header class="air-bar__header">
         <div class="row">
-          <div class="col">
+          <div class="col col-3">
             <h2 class="air-title air-title--primary">CGH</h2>
           </div>
           <div class="col text-right">
@@ -197,7 +186,7 @@
             </div>
           </section>
         </section>
-        <section id="panelConfig" class="air-section air-section--30">
+        <section id="panelConfig" class="air-section air-section--40 hide">
           <header class="air-section__header">
             <h3 class="air-title air-title--secondary">
               Rastreamento
@@ -208,14 +197,14 @@
               <Tab title="Proximidade">
                 <div class="row">
                   <div class="col">
-                    <label for="" class="air-label">Distância mín. entre aviões</label>
+                    <label for="" class="air-label">Distância <abbr title="mínima">mín.</abbr> entre aviões</label>
                     <div class="air-input-group">
                       <input type="text" class="air-input" />
                       <span class="air-input-group__addon">metros</span>
                     </div>
                   </div>
                   <div class="col">
-                    <label for="" class="air-label">Próximidade mín. do aeroporto</label>
+                    <label for="" class="air-label">Proximidade <abbr title="mínima">mín.</abbr> do aeroporto</label>
                     <div class="air-input-group">
                       <input type="text" class="air-input" />
                       <span class="air-input-group__addon">metros</span>
@@ -239,8 +228,14 @@
         </section>
       </section>
       <footer class="air-bar__footer">
-        <button class="air-button air-button--primary">Aplicar</button>
-        <button class="air-button air-button--secondary">Cancelar</button>
+        <div id="groupBtnConfig" class="hide">
+          <button id="btnApplyConfig" class="air-button air-button--primary">Aplicar</button>
+          <button id="btnCancelConfig" class="air-button air-button--secondary">Cancelar</button>
+        </div>
+        <button id="btnConfig" class="air-button air-button--primary">
+          <i class="material-icons">settings</i>
+          Configurar
+        </button>
       </footer>
     </section>
   </main>
