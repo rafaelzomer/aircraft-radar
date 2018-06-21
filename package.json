@@ -22,8 +22,10 @@
   "dependencies": {
     "autoprefixer": "^8.4.1",
     "bootstrap-4-grid": "^2.4.0",
+    "material-icons": "^0.2.3",
     "moment": "^2.22.1",
-    "normalize.css": "^8.0.0"
+    "normalize.css": "^8.0.0",
+    "roboto-fontface": "^0.9.0"
   },
   "devDependencies": {
     "ajv": "^6.3.0",
