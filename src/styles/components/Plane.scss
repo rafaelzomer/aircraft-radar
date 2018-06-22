@@ -6,7 +6,8 @@
     &__icon {
         transform: rotate(var(--rotation));
         .material-icons {
-          margin-left: 2.5px;
+          display: block;
+          width: 15px;
         }
     }
     &__desc {

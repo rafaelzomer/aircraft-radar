@@ -28,6 +28,7 @@
   align-items: stretch;
   &__addon {
     padding: .5rem;
+    font-weight: font('weight', 'light');
     background-color: setColorOpacity(color('tertiary'), .20);
   }
   
