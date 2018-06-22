@@ -112,7 +112,7 @@
               </div>
               <div class="col col-2">
                 <label for="inPlaneX" class="air-label">Eixo X</label>
-                <input id="inPlaneX" disabled type="text" class="air-input" required/>
+                <input id="inPlaneX" type="text" class="air-input" required/>
               </div>
               <div class="col col-2">
                 <label for="inPlaneY" class="air-label">Eixo Y</label>
@@ -181,9 +181,8 @@
             </h3>
           </header>
           <section class="air-section__body">
-            <div class="air-report">
-              <Report></Report>
-            </div>
+            <ul class="air-report">
+            </ul>
           </section>
         </section>
         <section id="panelConfig" class="air-section air-section--40 hide">
@@ -197,14 +196,17 @@
               <Tab title="Proximidade">
                 <div class="row">
                   <div class="col">
-                    <label for="" class="air-label">Distância <abbr title="mínima">mín.</abbr> entre aviões</label>
+                    <label for="" class="air-label">Distância
+                      <abbr title="mínima">mín.</abbr> entre aviões</label>
                     <div class="air-input-group">
                       <input type="text" class="air-input" />
                       <span class="air-input-group__addon">metros</span>
                     </div>
                   </div>
                   <div class="col">
-                    <label for="" class="air-label">Proximidade <abbr title="mínima">mín.</abbr> do aeroporto</label>
+                    <label for="" class="air-label">
+                      <abbr title="Proximdade">Prox.</abbr>
+                      <abbr title="mínima">mín.</abbr> do aeroporto</label>
                     <div class="air-input-group">
                       <input type="text" class="air-input" />
                       <span class="air-input-group__addon">metros</span>

@@ -3,7 +3,10 @@
 $colors: (
     'primary': #24353F,
     'secondary': #0F1519,
-    'tertiary': #D2F7FF
+    'tertiary': #D2F7FF,
+    'danger': #800000,
+    'warning': #806900,
+    'info': rgba(210,247,255,.25)
 ) !default;
 
 // Font

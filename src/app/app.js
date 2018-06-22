@@ -1,6 +1,6 @@
 import Ui from './ui';
 import config from './config';
-import report from './report';
+import Report from './report';
 import collision from './collision';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -34,11 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // planes.map(function(pl) {
   //   ui.add(pl); 
   // });
+  Report.addMessage('test', 'danger');
   var ret = collision.detectInList(ui.getPlanes());
   ret.map(col => {
     var name1 = col.plane1.getName();
     var name2 = col.plane2.getName();
-    report.addMessage(name1 + ' colidirá com ' + name2);
+    Report.addMessage(name1 + ' colidirá com ' + name2);
   });
   setInterval(function() {
     ui.update();
