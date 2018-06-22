@@ -5,6 +5,9 @@
     transform: rotate(90deg) scale(1, 1);
     &__icon {
         transform: rotate(var(--rotation));
+        .material-icons {
+          margin-left: 2.5px;
+        }
     }
     &__desc {
         font-size: .8rem;
