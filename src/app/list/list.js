@@ -33,11 +33,23 @@ function _setHeader(cols) {
   $header.appendChild(row);
 }
 
+function _handleClick(e){
+  let $row;
+  let $radio;
+  if(e.target.parentElement.nodeName == 'TR'){
+    $row = e.target.parentElement;
+  } else {
+    $row = e.target.parentElement.parentElement;
+  }
+  $radio = $row.querySelector('[type=radio]');
+  $radio.click();
+}
+
 function _render() {
   clean($body);
   ROWS.map(r => {
     let row = document.createElement("tr");
-
+    row.addEventListener('click', _handleClick);
     r.map(c => {
       let cell = document.createElement("td");
 

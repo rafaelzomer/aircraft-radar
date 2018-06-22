@@ -60,7 +60,7 @@
     tbody {
       tr {
         &:nth-child(even) {
-          background-color: setColorOpacity(color('tertiary'), .15);
+          background-color: setColorOpacity(color('tertiary'), .05);
         }
       }
     }
@@ -69,7 +69,8 @@
     tbody {
       tr {
         &:hover {
-          background-color: setColorOpacity(color('tertiary'), .15);
+          cursor: pointer;
+          background-color: setColorOpacity(color('tertiary'), .05);
         }
       }
     }

@@ -18,6 +18,7 @@ function Ui() {
   // Buttons
   let $btnAdd = document.querySelector('#btnAdd');
   let $btnSave = document.querySelector('#btnSave');
+  let $btnDelete = document.querySelector('#btnDelete');
   let $btnCancelAdd = document.querySelector('#btnCancelAdd');
   let $btnApplyTransform = document.querySelector('#btnApplyTransform');
   let $btnCancelTransform = document.querySelector('#btnCancelTransform');
@@ -109,12 +110,17 @@ function Ui() {
     $groupBtnConfig.classList.add('hide');
   }
 
+  function _deletePlane(){
+    // Excluir avião
+  }
+
   function _registerListeners(){
     EventEmitter.run();
     
     $btnAdd.addEventListener('click', _showRegister, false);
     $btnCancelAdd.addEventListener('click', _hideRegister, false);
     $btnSave.addEventListener('click', _addPlane, false);
+    $btnDelete.addEventListener('click', _deletePlane, false);
     $btnApplyTransform.addEventListener('click', _applyTransform, false);
     $btnCancelTransform.addEventListener('click', _cancelTransform, false);
     $btnConfig.addEventListener('click', _showConfig, false);
