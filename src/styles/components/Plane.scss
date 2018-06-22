@@ -13,5 +13,13 @@
         font-size: .8rem;
         position: absolute;
         transform: rotate(-90deg) scale(1, -1);
+        list-style: none;
+        padding: .25rem;
+        margin: 0;
+        background-color: setColorOpacity(#000, .3);
     }
+    &__axis {
+      font-weight: font('weight', 'regular');
+      font-size: .7rem
+  }
 }

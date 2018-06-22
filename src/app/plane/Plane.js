@@ -5,7 +5,7 @@ import number from '../number';
 import config from '../config';
 import uiUtils from '../ui/uiUtils';
 
-let Radar = document.querySelector('Radar');
+let Radar = document.querySelector('.air-radar__object');
 let $planeTemplate = uiUtils.stringToHtml(planeTemplate);
 
 function Plane({name, x, y, velocity, rotation}) {
@@ -17,16 +17,11 @@ function Plane({name, x, y, velocity, rotation}) {
   var props = {name, x, y, velocity, rotation};
   var engineOn = false; 
   let $plane = document.importNode($planeTemplate, true);
-  let $descriptionList = $plane.querySelectorAll('.air-plane__desc div');
-  var $description = $descriptionList[0];
-  var $yNode = $descriptionList[1];
-  var $xNode = $descriptionList[2];
-  var $velocity = $descriptionList[3];
+  var $description = $plane.querySelector('.air-plane__id');
 
   function _init() {
     _engineRunner();
     _renderDescription();
-    _renderVelocity();
     Radar.appendChild($plane);
   }
 
@@ -34,12 +29,6 @@ function Plane({name, x, y, velocity, rotation}) {
     $plane.style.setProperty('--axis-x', props.x + 'px');
     $plane.style.setProperty('--axis-y', props.y + 'px');
     $plane.style.setProperty('--rotation', props.rotation + 'deg');
-    $yNode.innerText = 'y' + number.round(props.y);
-    $xNode.innerText = 'x' + number.round(props.x);
-  }
-
-  function _renderVelocity() {
-    $velocity.innerText = number.round(props.velocity)+ ' km/h';
   }
 
   function _renderDescription() {
