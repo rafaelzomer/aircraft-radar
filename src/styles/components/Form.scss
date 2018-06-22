@@ -1,5 +1,5 @@
 .air-label {
-    font-size: .9rem;
+    font-size: 1rem;
     display: inline-block;
     margin-bottom: $gutter-width / 2;
 }
@@ -16,6 +16,9 @@
     width: 100%;
     &:focus {
         border-bottom-color: setColorOpacity(color('tertiary'), 1);
+    }
+    &:disabled {
+      border-bottom-color: transparent;
     }
 
 }

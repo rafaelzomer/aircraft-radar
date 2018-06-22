@@ -25,12 +25,13 @@
             content: "check";
             color: color('secondary');
             position: absolute;
-            top: -.05rem;
+            top: -.3rem;
             left: 0;
             font-family: font('icon');
             font-style: normal;
             font-weight: font('weight', 'extrabold');
             text-transform: none;
+            font-size: 1rem;
         }
     }
 
