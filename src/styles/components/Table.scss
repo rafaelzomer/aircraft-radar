@@ -43,6 +43,12 @@
   }
   tbody {
     tr {
+      &.danger {
+        color: color('danger');
+      }
+      &.warning {
+        color: color('warning');
+      }
       td {
         padding-top: .5rem;
         padding-bottom: .5rem;

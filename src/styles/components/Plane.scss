@@ -1,4 +1,6 @@
-.air-plane {
+
+$root: '.air-plane';
+#{$root} {
     position: relative;
     width: 19px;
     height: 16px;
@@ -9,6 +11,19 @@
           display: block;
           width: 15px;
         }
+    }
+    &--selected {
+      #{$root} {
+        &__icon {
+          animation: blink-plane .5s ease-out infinite;
+        }
+      }
+    }
+    &--danger {
+      color: color('danger');
+    }
+    &--warning {
+      color: color('warning');
     }
     &__desc {
         font-size: .8rem;
@@ -22,5 +37,15 @@
     &__axis {
       font-weight: font('weight', 'regular');
       font-size: .7rem
+  }
+}
+
+@keyframes blink-plane {
+  0%, 100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
   }
 }
