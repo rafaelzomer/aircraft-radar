@@ -5,6 +5,8 @@ import time from '../time';
 import Tabs from '../tabs';
 import Plane from '../plane/plane';
 import convert from '../convert';
+import config from '../config';
+import validation from '../validation';
 
 function Ui() {
   var _objects = [];
@@ -35,6 +37,10 @@ function Ui() {
   let $inPlaneVelocity = document.querySelector('#inPlaneVelocity');
   let $inPlaneDirection = document.querySelector('#inPlaneDirection');
 
+  let $inProximityPlane;
+  let $inProximityAirport;
+  let $inMinCollisionTime;
+
   //Group Buttons
   let $groupBtnPlane = document.querySelector('#groupBtnPlane');
   let $groupBtnPlaneRegister = document.querySelector('#groupBtnPlaneRegister');
@@ -44,13 +50,37 @@ function Ui() {
   function _init() {
 
     _makeHeader();
-    Tabs.render();
+    Tabs.render(_tabsCallback);
 
     setInterval(() => {
       time.update();
     }, 100);
 
     _registerListeners();
+  }
+
+  function _tabsCallback(tabName, $tabsetContent) {
+    switch(tabName){
+      case 'PROXIMIDADE': 
+        _configProximity($tabsetContent);
+        break;
+      case 'COLISÃO': 
+        _configColision($tabsetContent);
+        break;
+    }
+  }
+
+  function _configProximity(content) {
+    $inProximityPlane = content.querySelector('#inProximityPlane');
+    $inProximityAirport = content.querySelector('#inProximityAirport');
+
+    $inProximityPlane.value = config.proximity;
+    $inProximityAirport.value = config.airportDistance;
+  }
+
+  function _configColision(content) {
+    $inMinCollisionTime = content.querySelector('#inMinCollisionTime');
+    $inMinCollisionTime.value = config.minCollisionTime;
   }
 
   function _applyTransform(){
@@ -101,7 +131,34 @@ function Ui() {
   }
 
   function _applyConfig(){
-    // Altera configurações
+    let currentTab = Tabs.getActiveTab($pnConfig).innerText;
+
+    switch(currentTab){
+      case 'PROXIMIDADE':
+        _setProximity();
+        break;
+      case 'COLISÃO':
+        _setCollision();
+        break;
+    }
+  }
+
+  function _setProximity() {
+    try {
+      config.proximity = validation.toNumber($inProximityPlane.value);
+      config.airportDistance = validation.toNumber($inProximityAirport.value);
+    } catch(e) {
+      $inProximityPlane.value = config.proximity;
+      $inProximityAirport.value = config.airportDistance;
+    }
+  }
+
+  function _setCollision() {
+    try {
+      config.minCollisionTime = validation.toNumber($inMinCollisionTime.value);
+    } catch(e) {
+      $inMinCollisionTime.value = config.minCollisionTime;
+    }
   }
 
   function _cancelConfig(){
