@@ -1,6 +1,6 @@
 import tableTemplate from './table.template.html';
 import uiUtils from '../ui/uiUtils';
-import radio from '../radio';
+import checkbox from '../checkbox';
 const ROWS = [];
 
 let list = document.querySelector('List');
@@ -35,14 +35,14 @@ function _setHeader(cols) {
 
 function _handleClick(e){
   let $row;
-  let $radio;
+  let $checkbox;
   if(e.target.parentElement.nodeName == 'TR'){
     $row = e.target.parentElement;
   } else {
     $row = e.target.parentElement.parentElement;
   }
-  $radio = $row.querySelector('[type=radio]');
-  $radio.click();
+  $checkbox = $row.querySelector('[type=checkbox]');
+  $checkbox.click();
 }
 
 function _render() {
@@ -66,8 +66,8 @@ function _render() {
       row.appendChild(cell);
     })
     // let cell = document.createElement("td");
-    // cellRadio.appendChild(c);
-    // row.appendChild(cellRadio);
+    // cellCheckbox.appendChild(c);
+    // row.appendChild(cellCheckbox);
 
 
     // let cellID = document.createElement("td");
@@ -94,10 +94,10 @@ function _addPlane(plane) {
   let span = document.createElement('span');
   span.className = 'ellipsis';
   span.innerText = plane.getName();
-  radio.setId(plane.getId());
+  checkbox.setId(plane.getId());
   _addRow([{
       type: 'element',
-      value: radio.getNode()
+      value: checkbox.getNode()
     },
     {
       type: 'element',
@@ -128,13 +128,13 @@ function _addPlane(plane) {
       }
     },
     {
-      value: plane.getRotation(),
+      value: plane.getVelocity(),
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: plane.getVelocity(),
+      value: plane.getRotation(),
       attrs: {
         className: 'text-center'
       }

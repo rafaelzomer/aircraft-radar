@@ -1,5 +1,5 @@
 import moment from 'moment';
-let Time = document.querySelector('Time');
+let Time = document.querySelector('.air-time');
 let $date = Time.querySelector('.air-time__date');
 let $hour = Time.querySelector('.air-time__hour');
 

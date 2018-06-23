@@ -1,10 +1,13 @@
 import List from '../list';
 import EventEmitter from '../../polyfill/emitter';
-import Radio from '../radio';
+import Checkbox from '../checkbox';
 import time from '../time';
 import Tabs from '../tabs';
 import Plane from '../plane/plane';
 import convert from '../convert';
+import translation from '../transforms/translation';
+import scaling from '../transforms/scaling';
+import rotation from '../transforms/rotation';
 
 function Ui() {
   var _objects = [];
@@ -72,20 +75,61 @@ function Ui() {
   }
 
   function _setTranslation(){
-    // TODO: Fórmula translação
-    _selected.setX(0);
-    _selected.setY(0);
+    let $inTranslationX = document.querySelector('#inTranslationX');
+    let $inTranslationY = document.querySelector('#inTranslationY');
+
+    _selected.map(p => {
+      let x1 = p.getX();
+      let y1 = p.getY();
+  
+      let x2 = new Number($inTranslationX.value);
+      let y2 = new Number($inTranslationY.value);
+  
+      let {x, y} = translation.run({x1, y1}, {x2, y2});
+  
+      p.setX(x);
+      p.setY(y);
+
+    });
   }
 
   function _setScaling(){
-    // TODO: Fórmula escala
-    console.log(_selected);
+    let $inScalingX = document.querySelector('#inScalingX');
+    let $inScalingY = document.querySelector('#inScalingY');
+
+    _selected.map(p => {
+      let x1 = p.getX();
+      let y1 = p.getY();
+
+      let x2 = new Number($inScalingX.value);
+      let y2 = new Number($inScalingY.value);
+
+      let {x, y} = scaling.run({x1, y1}, {x2, y2});
+
+      p.setX(x);
+      p.setY(y);
+    });
   }
 
   function _setRotation(){
-    // TODO: Fórmula rotação
-    console.log('Rotação');
-    console.log(_selected);
+    
+    let $inRotationAngle = document.querySelector('#inRotationAngle');
+    let $inRotationX = document.querySelector('#inRotationX');
+    let $inRotationY = document.querySelector('#inRotationY');
+
+    _selected.map(p => {
+      let x1 = p.getX();
+      let y1 = p.getY();
+
+      let angle = new Number($inRotationAngle.value);
+      let x2 = new Number($inRotationX.value);
+      let y2 = new Number($inRotationY.value);
+
+      let {x, y} = rotation.run({x1, y1}, {angle, x2, y2});
+
+      p.setX(x);
+      p.setY(y);
+    });
   }
 
   function _cancelTransform(){
@@ -127,14 +171,25 @@ function Ui() {
     $btnApplyConfig.addEventListener('click', _applyConfig, false);
     $btnCancelConfig.addEventListener('click', _cancelConfig, false);
 
-    window.EventEmitter.on('radio-item:change', function(obj){
+    window.EventEmitter.on('checkbox-item:change', function(obj){
 
-      _selected = _getPlaneById(obj.target.getAttribute('data-plane-id'));
-      $pnRegister.classList.add('hide');
-      $pnTransform.classList.remove('hide');
-      $groupBtnPlane.classList.add('hide');
-      $groupBtnPlaneRegister.classList.add('hide');
-      $groupBtnPlaneTransform.classList.remove('hide');
+      _selected = [];
+
+      document.querySelectorAll('.air-table [type=checkbox]:checked').forEach(el => {
+        _selected.push(_getPlaneById(el.getAttribute('data-plane-id')));
+      });
+      
+      if(_selected.length){
+        $pnRegister.classList.add('hide');
+        $pnTransform.classList.remove('hide');
+        $groupBtnPlane.classList.add('hide');
+        $groupBtnPlaneRegister.classList.add('hide');
+        $groupBtnPlaneTransform.classList.remove('hide');
+      } else {
+        $pnTransform.classList.add('hide');
+        $groupBtnPlane.classList.remove('hide');
+        $groupBtnPlaneTransform.classList.add('hide');
+      }
     });
   }
 

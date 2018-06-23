@@ -58,11 +58,11 @@
                 <div class="row">
                   <div class="col">
                     <label for="" class="air-label">Eixo X</label>
-                    <input type="text" class="air-input" />
+                    <input type="text" class="air-input" id="inTranslationX" />
                   </div>
                   <div class="col">
                     <label for="" class="air-label">Eixo Y</label>
-                    <input type="text" class="air-input" />
+                    <input type="text" class="air-input" id="inTranslationY" />
                   </div>
                 </div>
               </Tab>
@@ -70,11 +70,17 @@
                 <div class="row">
                   <div class="col">
                     <label for="" class="air-label">Eixo X</label>
-                    <input type="text" class="air-input" />
+                    <div class="air-input-group">
+                      <input type="text" class="air-input" id="inScalingX" />
+                      <span class="air-input-group__addon">%</span>
+                    </div>
                   </div>
                   <div class="col">
                     <label for="" class="air-label">Eixo Y</label>
-                    <input type="text" class="air-input" />
+                    <div class="air-input-group">
+                      <input type="text" class="air-input" id="inScalingY" />
+                      <span class="air-input-group__addon">%</span>
+                    </div>
                   </div>
                 </div>
               </Tab>
@@ -82,15 +88,15 @@
                 <div class="row">
                   <div class="col">
                     <label for="" class="air-label">Ângulo</label>
-                    <input type="text" class="air-input" />
+                    <input type="text" class="air-input" id="inRotationAngle" />
                   </div>
                   <div class="col">
-                    <label for="" class="air-label">Eixo X</label>
-                    <input type="text" class="air-input" />
+                    <label for="" class="air-label">Eixo X do centro</label>
+                    <input type="text" class="air-input" id="inRotationX" />
                   </div>
                   <div class="col">
-                    <label for="" class="air-label">Eixo Y</label>
-                    <input type="text" class="air-input" />
+                    <label for="" class="air-label">Eixo Y do centro</label>
+                    <input type="text" class="air-input" id="inRotationY" />
                   </div>
                 </div>
               </Tab>
@@ -165,10 +171,10 @@
             <h2 class="air-title air-title--primary">CGH</h2>
           </div>
           <div class="col text-right">
-            <Time class="air-time air-title air-title--primary">
+            <div class="air-time air-title air-title--primary">
               <span class="air-time__date">01/01/2018</span>
               <span class="air-time__hour">15:35:30</span>
-            </Time>
+            </div>
           </div>
         </div>
       </header>
