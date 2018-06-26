@@ -15,8 +15,8 @@ function _getActiveTab($container){
 function setActiveTab({
   $tabsetHeader,
   $tabsetContent
-}, TABS, index) {
-  var currentTab = $tabsetHeader.querySelector('.' + TAB_ACTIVE_CLASS);;
+}, TABS, index, callback) {
+  var currentTab = $tabsetHeader.querySelector('.' + TAB_ACTIVE_CLASS);
   if (currentTab && currentTab.classList) {
     currentTab.classList.remove(TAB_ACTIVE_CLASS);
   }
@@ -27,9 +27,11 @@ function setActiveTab({
   tab.classList.add(TAB_ACTIVE_CLASS);
   $tabsetContent.innerHTML = '';
   $tabsetContent.appendChild(TABS[index]);
+  var tabName = tab.innerText.toUpperCase();
+  callback && callback(tabName, $tabsetContent);
 }
 
-function render() {
+function render(callback) {
   Tabset.forEach(tabset => {
     let $tabset = document.importNode($tabsetTemplate, true);
     let $tabsetHeader = $tabset.querySelector('.air-tab');
@@ -45,7 +47,7 @@ function render() {
         setActiveTab({
           $tabsetHeader,
           $tabsetContent
-        }, TABS, tab.index);
+        }, TABS, tab.index, callback);
       };
       $tabsetHeader.appendChild(tab);
       let span = document.createElement("span");
@@ -58,7 +60,7 @@ function render() {
     setActiveTab({
       $tabsetHeader,
       $tabsetContent
-    }, TABS, 0);
+    }, TABS, 0, callback);
   });
 }
 
