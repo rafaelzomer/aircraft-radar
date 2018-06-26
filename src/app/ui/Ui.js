@@ -10,6 +10,8 @@ import scaling from '../transforms/scaling';
 import rotation from '../transforms/rotation';
 import config from '../config';
 import validation from '../validation';
+import collision from '../collision';
+import Report from '../report';
 
 function Ui() {
   var _objects = [];
@@ -57,7 +59,8 @@ function Ui() {
 
     setInterval(() => {
       time.update();
-    }, 100);
+      _update();
+    }, config.timeout);
 
     _registerListeners();
   }
@@ -329,34 +332,36 @@ function Ui() {
       List.addPlane(plan);
     }
 
-    _validate([$inPlaneDesc, $inPlaneVelocity, $inPlaneDirection]);
-
-    var cart = {
-      x: new Number($inPlaneX.value),
-      y: new Number($inPlaneY.value)
+    try {
+      var cart = {
+        x: validation.toNumber($inPlaneX.value),
+        y: validation.toNumber($inPlaneY.value)
+      }
+      if ($inPlaneRadius.value && $inPlaneAngle.value) {
+        cart = convert.polarToCart($inPlaneRadius.value, $inPlaneAngle.value);
+      }
+      let plane = new Plane({
+        name: validation.toString($inPlaneDesc.value, 'Descrição'),
+        velocity: validation.toNumber($inPlaneVelocity.value, 'Velocidade'),
+        x: cart.x,
+        y: cart.y,
+        rotation: validation.toNumber($inPlaneDirection.value, 'Rotação')
+      });
+      plane.toggleEngine();
+      _add(plane);
+    } catch(e) {
+      
     }
-    if ($inPlaneRadius.value && $inPlaneAngle.value) {
-      cart = convert.polarToCart($inPlaneRadius.value, $inPlaneAngle.value);
-    }
-    let plane = new Plane({
-      name: new String($inPlaneDesc.value),
-      velocity: new Number($inPlaneVelocity.value),
-      x: cart.x,
-      y: cart.y,
-      rotation: new Number($inPlaneDirection.value)
-    });
-    plane.toggleEngine();
-    _add(plane);
+    _detectCollision();
   }
 
-  function _validate(inputs) {
-    inputs.map(el => {
-      if (el.hasAttribute('required') && el.value == '') {
-        var label = document.querySelector('[for="'+el.id+'"]');
-        alert('Campo ' + label.innerText + ' é obrigatório');
-        //throw new Error('Campo ' + el.id + ' é obrigatório')
-      }
-    })
+  function _detectCollision() {
+    var ret = collision.detectInList(_getPlanes());
+    ret.map(col => {
+      var name1 = col.plane1.getName();
+      var name2 = col.plane2.getName();
+      Report.addMessage(name1 + ' colidirá com ' + name2, 'danger');
+    });
   }
 
   function _add(object) {
@@ -382,7 +387,6 @@ function Ui() {
 
   _init();
   return {
-    getPlanes: _getPlanes,
     add: _add,
     update: _update
   }
