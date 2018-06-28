@@ -23,7 +23,12 @@ function _addMessage(message, type = 'info'){
   let $desc = $item.querySelector('.air-report__item-desc');
   $desc.innerText = message;
 
-  Report.insertBefore($item, Report.childNodes[0]); 
+  Report.insertBefore($item, Report.childNodes[0]);
+  return {
+    remove: () => {
+      $item.remove();
+    }
+  }; 
 }
 
 export default {

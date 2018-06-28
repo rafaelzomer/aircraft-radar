@@ -2,20 +2,26 @@ const RANGE = 2;
 import config from '../config';
 import uiUtils from '../ui/uiUtils';
 
-function _detectInList(planes) {
-  var planesWillCollide = [];
+function _detectInList(planes, specificPlanes) {
+  var planesWillCollide = {};
   var planeListColide = [];
-  for (let i = 0; i < planes.length; i++) {
-    const plane1 = planes[i];
-    planesWillCollide[i] = planesWillCollide[i] || {};
+  var planeList = planes;
+  if (specificPlanes && specificPlanes.length) {
+    planeList = specificPlanes;
+  }
+  for (let i = 0; i < planeList.length; i++) {
+    const plane1 = planeList[i];
+    const id1 = plane1.getId();
+    planesWillCollide[id1] = planesWillCollide[id1] || {};
     for (let j = 0; j < planes.length; j++) {
       const plane2 = planes[j];
-      planesWillCollide[j] = planesWillCollide[j] || {};
-      if (planesWillCollide[i][j] || planesWillCollide[j][i] || i == j) {
+      const id2 = plane2.getId();
+      planesWillCollide[id2] = planesWillCollide[id2] || {};
+      if (planesWillCollide[id1][id2] || planesWillCollide[id2][id1] || id1 == id2) {
         continue;
       }
       var willCollide = _detect(plane1, plane2);
-      planesWillCollide[i][j] = willCollide;
+      planesWillCollide[id1][id2] = willCollide;
       if (willCollide) {
         planeListColide.push({
           plane1,
@@ -71,7 +77,6 @@ function _detect(plane1, plane2) {
       if (diff < config.proximity) {
         var avgX = (next1.x + next2.x) / 2;
         var avgY = (next1.y + next2.y) / 2;
-        uiUtils.insertDot(avgX, avgY);
         return {
           collisionPoint: {
             x: avgX,
