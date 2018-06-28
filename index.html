@@ -111,27 +111,9 @@
           </header>
           <section class="air-section__body">
             <div class="row">
-              <div class="col">
+              <div class="col col-6">
                 <label for="inPlaneDesc" class="air-label">Descrição</label>
                 <input id="inPlaneDesc" type="text" class="air-input" required/>
-              </div>
-              <div class="col col-2">
-                <label for="inPlaneX" class="air-label">Eixo X</label>
-                <input id="inPlaneX" type="text" class="air-input" required/>
-              </div>
-              <div class="col col-2">
-                <label for="inPlaneY" class="air-label">Eixo Y</label>
-                <input id="inPlaneY" type="text" class="air-input" required/>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <label for="inPlaneAngle" class="air-label">Ângulo</label>
-                <input id="inPlaneAngle" type="text" class="air-input" required/>
-              </div>
-              <div class="col">
-                <label for="inPlaneRadius" class="air-label">Raio</label>
-                <input id="inPlaneRadius" type="text" class="air-input" required/>
               </div>
               <div class="col">
                 <label for="inPlaneVelocity" class="air-label">Velocidade</label>
@@ -140,6 +122,63 @@
               <div class="col">
                 <label for="inPlaneDirection" class="air-label">Direção</label>
                 <input id="inPlaneDirection" type="text" class="air-input" required/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col-6">
+                <label for="toggleCartPolar" class="air-label">Tipo de entrada</label>
+                <div class="air-btn-group">
+                  <div class="air-radio air-radio--inline">
+                    <input id="radioCart" onclick="javascript: setInputType(event, 'Cart')" type="radio" name="airCartPolar" checked/>
+                    <label for="radioCart">Cart.</label>
+                  </div>
+                  <div class="air-radio air-radio--inline">
+                    <input id="radioPolar" onclick="javascript: setInputType(event, 'Polar')" type="radio" name="airCartPolar" />
+                    <label for="radioPolar">Polar</label>
+                  </div>
+                </div>
+                <script>
+                  function setInputType(e, type){
+                    switch(type) {
+                      case 'Cart':
+                        _toggle(true);
+                      break;
+                      case 'Polar':
+                        _toggle(false);
+                      break;
+                    }
+
+                    function _toggle(bool){
+                      let $allInCart = document.querySelectorAll('.only-cart');
+                      let $allInPolar = document.querySelectorAll('.only-polar');
+                      
+                      $allInCart.forEach(el => {
+                        el.classList.toggle('hide', !bool);
+                      });
+                      
+                      $allInPolar.forEach(el => {
+                        el.classList.toggle('hide', bool);
+                      });
+                    }
+
+                  }
+                </script>
+              </div>
+              <div class="col col-3 only-cart">
+                <label for="inPlaneX" class="air-label">Eixo X</label>
+                <input id="inPlaneX" type="text" class="air-input" required/>
+              </div>
+              <div class="col col-3 only-cart">
+                <label for="inPlaneY" class="air-label">Eixo Y</label>
+                <input id="inPlaneY" type="text" class="air-input" required/>
+              </div>
+              <div class="col col-3 only-polar hide">
+                <label for="inPlaneAngle" class="air-label">Ângulo</label>
+                <input id="inPlaneAngle" type="text" class="air-input" required/>
+              </div>
+              <div class="col col-3 only-polar hide">
+                <label for="inPlaneRadius" class="air-label">Raio</label>
+                <input id="inPlaneRadius" type="text" class="air-input" required/>
               </div>
             </div>
           </section>

@@ -1,26 +1,25 @@
 .air-label {
-    font-size: 1rem;
-    display: inline-block;
-    margin-bottom: $gutter-width / 2;
+  font-size: 1rem;
+  display: inline-block;
+  margin-bottom: $gutter-width / 2;
 }
 
 .air-input {
-    background-color: setColorOpacity(color('tertiary'), .15);
-    border-style: solid;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    border-bottom: .2rem solid setColorOpacity(color('tertiary'), .25);
-    padding: .5rem;
-    color: color('tertiary');
-    width: 100%;
-    &:focus {
-        border-bottom-color: setColorOpacity(color('tertiary'), 1);
-    }
-    &:disabled {
-      border-bottom-color: transparent;
-    }
-
+  background-color: setColorOpacity(color('tertiary'), .15);
+  border-style: solid;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom: .2rem solid setColorOpacity(color('tertiary'), .25);
+  padding: .5rem;
+  color: color('tertiary');
+  width: 100%;
+  &:focus {
+    border-bottom-color: setColorOpacity(color('tertiary'), 1);
+  }
+  &:disabled {
+    border-bottom-color: transparent;
+  }
 }
 
 .air-input-group {
@@ -31,5 +30,51 @@
     font-weight: font('weight', 'light');
     background-color: setColorOpacity(color('tertiary'), .20);
   }
-  
+}
+
+.air-btn-group {
+  display: flex;
+  border-radius: .3rem;
+  .air-radio {
+    border: .1rem solid setColorOpacity(color('tertiary'), .25);
+    border-radius: 0;
+    flex-grow: 1;
+    &:first-child {
+      border-top-left-radius: 3px;
+      border-bottom-left-radius: 3px;
+      border-right: 0;
+    }
+    &:last-child {
+      border-top-right-radius: 3px;
+      border-bottom-right-radius: 3px;
+      border-left: 0;
+    }
+    input {
+      display: none;
+      &:checked+label {
+        background-color: setColorOpacity(color('tertiary'), .25);
+        &:hover,
+        &:focus {
+          background-color: setColorOpacity(color('tertiary'), .50);
+        }
+      }
+    }
+    label {
+      border-style: solid;
+      border-width: 0;
+      color: color('tertiary');
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      justify-content: center;
+      font-size: 1rem;
+      padding: .5rem;
+      text-transform: uppercase;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+      width: 100%;
+    }
+  }
 }
