@@ -11,8 +11,17 @@ function degreesToRadians(degree) {
   return degree * Math.PI / 180;
 }
 
+function format(value) {
+  if (!value) {
+    value = 0;
+  }
+  value = round(value);
+  return (value+'').replace('.', ',');
+}
+
 export default {
   radiansToDegrees,
   degreesToRadians,
-  round
+  round,
+  format
 }

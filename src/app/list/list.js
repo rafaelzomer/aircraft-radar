@@ -1,6 +1,7 @@
 import tableTemplate from './table.template.html';
 import uiUtils from '../ui/uiUtils';
 import checkbox from '../checkbox';
+import number from '../number';
 const ROWS = [];
 
 let list = document.querySelector('List');
@@ -104,37 +105,37 @@ function _addPlane(plane) {
       value: document.importNode(span, true)
     },
     {
-      value: plane.getX(),
+      value: number.format(plane.getX()),
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: plane.getY(),
+      value: number.format(plane.getY()),
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: plane.getRadius(),
+      value: number.format(plane.getRadius()),
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: plane.getAngle(),
+      value: number.format(plane.getAngle()),
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: plane.getVelocity(),
+      value: number.format(plane.getVelocity()),
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: plane.getRotation(),
+      value: number.format(plane.getRotation()),
       attrs: {
         className: 'text-center'
       }

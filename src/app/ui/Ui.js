@@ -12,6 +12,8 @@ import config from '../config';
 import validation from '../validation';
 import collision from '../collision';
 import Report from '../report';
+import proximity from '../proximity/proximity';
+import number from '../number';
 
 function Ui() {
   var _objects = [];
@@ -105,6 +107,7 @@ function Ui() {
       default:
         throw new Error('Transformação não reconhecida');
     }
+    _detectAirportProximity();
   }
 
   function _setTranslation(){
@@ -194,6 +197,7 @@ function Ui() {
     try {
       config.proximity = validation.toNumber($inProximityPlane.value);
       config.airportDistance = validation.toNumber($inProximityAirport.value);
+      _detectAirportProximity();
     } catch(e) {
       $inProximityPlane.value = config.proximity;
       $inProximityAirport.value = config.airportDistance;
@@ -203,6 +207,7 @@ function Ui() {
   function _setCollision() {
     try {
       config.minCollisionTime = validation.toNumber($inMinCollisionTime.value);
+      _detectCollision();
     } catch(e) {
       $inMinCollisionTime.value = config.minCollisionTime;
     }
@@ -353,6 +358,7 @@ function Ui() {
       
     }
     _detectCollision();
+    _detectAirportProximity();
   }
 
   function _detectCollision() {
@@ -361,6 +367,15 @@ function Ui() {
       var name1 = col.plane1.getName();
       var name2 = col.plane2.getName();
       Report.addMessage(name1 + ' colidirá com ' + name2, 'danger');
+    });
+  }
+
+  function _detectAirportProximity() {
+    var ret = proximity.detectInList(_getPlanes());
+    ret.map(col => {
+      var name = col.plane.getName();
+      var distance = number.format(col.distance);
+      Report.addMessage('Distância do aeroporto: ' + name + ' está a ' + distance + 'km do aeroporto', 'warning');
     });
   }
 
