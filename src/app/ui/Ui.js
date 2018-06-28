@@ -18,6 +18,7 @@ import number from '../number';
 
 function Ui() {
   var _objects = [];
+  var _collisionMessages = [];
   var _selected = null;
 
   // Panels
@@ -109,6 +110,7 @@ function Ui() {
         throw new Error('Transformação não reconhecida');
     }
     _detectAirportProximity();
+    _detectCollision(_selected);
   }
 
   function _setTranslation(){
@@ -330,9 +332,9 @@ function Ui() {
 
   function _addPlane() {
 
-    for (let i = 0; i < 10; i++) {
-      var x = Math.floor(Math.random() * 600) - 300;
-      var y = Math.floor(Math.random() * 600) - 300;
+    for (let i = 0; i < 5; i++) {
+      var x = Math.floor(Math.random() * 100) - 50;
+      var y = Math.floor(Math.random() * 100) - 50;
       var rotation = Math.floor(Math.random() * 360) + 1;
       var plan = new Plane({
         velocity: 380,
@@ -368,12 +370,33 @@ function Ui() {
     _detectAirportProximity();
   }
 
-  function _detectCollision() {
-    var ret = collision.detectInList(_getPlanes());
+  function _detectCollision(specificPlanes) {
+    var planes = _getPlanes();
+    if (specificPlanes && specificPlanes.length) {
+      for (let j = 0; j < specificPlanes.length; j++) {
+        const specificPlane = specificPlanes[j];
+        var specId = specificPlane.getId();
+        var i = _collisionMessages.length
+        while (i--) {
+          const message = _collisionMessages[i];
+          if (message.plane1.getId() == specId 
+            || message.plane2.getId() == specId) {
+            message.report.remove();
+            _collisionMessages.splice(i, 1);
+          }
+        }
+      }
+    }
+    var ret = collision.detectInList(planes, specificPlanes);
     ret.map(col => {
       var name1 = col.plane1.getName();
       var name2 = col.plane2.getName();
-      Report.addMessage(name1 + ' colidirá com ' + name2, 'danger');
+      var report = Report.addMessage(name1 + ' colidirá com ' + name2, 'danger');
+      _collisionMessages.push({
+        plane1: col.plane1,
+        plane2: col.plane2,
+        report
+      });
     });
   }
 
