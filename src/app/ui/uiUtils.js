@@ -1,5 +1,5 @@
 import dotTemplate from './dot.html';
-let Radar = document.querySelector('Radar');
+let Radar = document.querySelector('.air-radar__object');
 let $dotTemplate = stringToHtml(dotTemplate);
 
 function insertDot(x, y) {
