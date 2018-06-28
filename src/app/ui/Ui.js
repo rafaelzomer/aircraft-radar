@@ -10,6 +10,7 @@ import scaling from '../transforms/scaling';
 import rotation from '../transforms/rotation';
 import config from '../config';
 import validation from '../validation';
+import move from '../move';
 
 function Ui() {
   var _objects = [];
@@ -154,9 +155,15 @@ function Ui() {
       let angle = new Number($inRotationAngle.value);
       let x2 = new Number($inRotationX.value);
       let y2 = new Number($inRotationY.value);
-
-      let {x, y} = rotation.run({x1, y1}, {angle, x2, y2});
-
+      
+      let center = move.moveToCenter(x2, y2);
+      
+      x1 += center.x;
+      y1 += center.y;
+      let {x, y} = rotation.run(x1, y1, angle);
+      
+      x -=  center.x;
+      y -=  center.y;
       p.setX(x);
       p.setY(y);
     });

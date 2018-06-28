@@ -5,9 +5,8 @@ export default {
     let r = Math.sqrt((Math.pow(x, 2) + Math.pow(y, 2)));
     let m = y / x;
     let angle = number.radiansToDegrees(Math.atan(m));
-    let angleSum = 0;
     return {
-      a: angle + angleSum,
+      a: angle,
       r: r
     }
   },
