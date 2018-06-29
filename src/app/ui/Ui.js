@@ -26,6 +26,7 @@ function Ui() {
   let $pnRegister = document.querySelector('#panelRegister');
   let $pnTransform = document.querySelector('#panelTransform');
   let $pnConfig = document.querySelector('#panelConfig');
+  let $panelObjects = document.querySelector('#panelObjects');
 
   // Buttons
   let $btnAdd = document.querySelector('#btnAdd');
@@ -47,6 +48,10 @@ function Ui() {
   let $inPlaneRadius = document.querySelector('#inPlaneRadius');
   let $inPlaneVelocity = document.querySelector('#inPlaneVelocity');
   let $inPlaneDirection = document.querySelector('#inPlaneDirection');
+
+  // Toggle
+  let $radioCart = document.querySelector('#radioCart');
+  let $radioPolar = document.querySelector('#radioPolar');
 
   let $inProximityPlane;
   let $inProximityAirport;
@@ -255,7 +260,11 @@ function Ui() {
   }
 
   function _deletePlane(){
-    // Excluir avião
+    _selected.map(p => {
+      let id = p.getId()
+      List.removePlane(id);
+      _remove(id);
+    });
   }
 
   function _registerListeners(){
@@ -271,6 +280,8 @@ function Ui() {
     $btnConfig.addEventListener('click', _showConfig, false);
     $btnApplyConfig.addEventListener('click', _applyConfig, false);
     $btnCancelConfig.addEventListener('click', _cancelConfig, false);
+    $radioCart.addEventListener('click', _setInputType, false);
+    $radioPolar.addEventListener('click', _setInputType, false);
 
     window.EventEmitter.on('checkbox-item:change', function(obj){
 
@@ -292,6 +303,36 @@ function Ui() {
         $groupBtnPlaneTransform.classList.add('hide');
       }
     });
+  }
+
+  function _getInputType(){
+    return document.querySelector('[name=airCartPolar]:checked').value;
+  }
+
+  function _setInputType() {
+    let type = _getInputType();
+    switch (type) {
+      case 'Cart':
+        _toggle(true);
+        break;
+      case 'Polar':
+        _toggle(false);
+        break;
+    }
+
+    function _toggle(bool) {
+      let $allInCart = document.querySelectorAll('.only-cart');
+      let $allInPolar = document.querySelectorAll('.only-polar');
+
+      $allInCart.forEach(el => {
+        el.classList.toggle('hide', !bool);
+      });
+
+      $allInPolar.forEach(el => {
+        el.classList.toggle('hide', bool);
+      });
+    }
+
   }
 
   function _getPlaneById(id){
@@ -398,12 +439,19 @@ function Ui() {
   function _addPlane() {
     notification.hide();
     try {
-      var cart = {
-        x: validation.toNumber($inPlaneX.value),
-        y: validation.toNumber($inPlaneY.value)
-      }
-      if ($inPlaneRadius.value && $inPlaneAngle.value) {
-        cart = convert.polarToCart($inPlaneRadius.value, $inPlaneAngle.value);
+      
+      let type = _getInputType();
+      var cart;
+      switch (type) {
+        case 'Cart':
+          cart = {
+            x: validation.toNumber($inPlaneX.value),
+            y: validation.toNumber($inPlaneY.value)
+          }
+          break;
+        case 'Polar':
+          cart = convert.polarToCart($inPlaneRadius.value, $inPlaneAngle.value);
+          break;
       }
       let plane = new Plane({
         name: validation.toString($inPlaneDesc.value, 'Descrição'),
@@ -470,6 +518,17 @@ function Ui() {
       throw 'object should have a render function';
     }
     _objects.push(object);
+  }
+
+  function _remove(id) {
+
+    for (let i = 0; i < _objects.length; i++) {
+      const obj = _objects[i];
+      if(obj.getId() == id){
+        obj.remove();
+        _objects.splice(i, 1);
+      }
+    }
   }
 
   function _update() {

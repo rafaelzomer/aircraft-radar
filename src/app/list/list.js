@@ -46,6 +46,23 @@ function _handleClick(e){
   $checkbox.click();
 }
 
+function _removePlane(id) {
+  let row;
+  ROWS.map((r, i) => {
+    r.map(c => {
+      if(c.type == 'element' && c.value.classList.contains('air-checkbox')){
+        let $cbx = c.value.firstChild;
+        if($cbx.dataset.planeId == id){
+          row = i;
+        }
+      }
+    });
+  });
+
+  ROWS.splice(row, 1);
+  _render();
+}
+
 function _render() {
   clean($body);
   ROWS.map(r => {
@@ -152,5 +169,6 @@ export default {
   render: _render,
   addPlane: _addPlane,
   addRow: _addRow,
+  removePlane: _removePlane,
   setHeader: _setHeader
 }

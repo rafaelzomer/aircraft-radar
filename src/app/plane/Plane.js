@@ -26,6 +26,10 @@ function Plane({name, x, y, velocity, rotation}) {
     Radar.appendChild($plane);
   }
 
+  function _remove(){
+    $plane.remove();
+  }
+
   function _render() {
     $plane.style.setProperty('--axis-x', props.x + 'px');
     $plane.style.setProperty('--axis-y', props.y + 'px');
@@ -120,6 +124,7 @@ function Plane({name, x, y, velocity, rotation}) {
     getRotation: _getRotation,
     getVelocity: _getVelocity,
     getConvertedVelocity: _getConvertedVelocity,
+    remove: _remove,
     render: _render,
     toggleEngine: _toggleEngine,
     nextPosition: _nextPosition
