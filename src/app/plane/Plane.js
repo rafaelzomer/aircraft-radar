@@ -4,11 +4,14 @@ import convert from '../convert';
 import number from '../number';
 import config from '../config';
 import uiUtils from '../ui/uiUtils';
+const DANGER_CLASS = 'air-plane--danger'
+const SELECTED_CLASS = 'air-plane--selected'
 
 let Radar = document.querySelector('.air-radar__object');
 let $planeTemplate = uiUtils.stringToHtml(planeTemplate);
 
 function Plane({name, x, y, velocity, rotation}) {
+  var _callbacks = [];
   var id = uiUtils.generateHash();
   if (velocity < config.minVelocity) {
     throw 'o avião deve estar a mais de ' + config.minVelocity + ' km/h';
@@ -73,6 +76,7 @@ function Plane({name, x, y, velocity, rotation}) {
 
   function _setX(value){
     props.x = value;
+    _call();
   }
 
   function _getX() {
@@ -81,6 +85,7 @@ function Plane({name, x, y, velocity, rotation}) {
 
   function _setY(value){
     props.y = value;
+    _call();
   }
 
   function _getY() {
@@ -111,6 +116,36 @@ function Plane({name, x, y, velocity, rotation}) {
     return number.round(props.velocity);
   }
 
+  function _onPropUpdate(callback) {
+    _callbacks.push(callback);
+  }
+
+  function _call() {
+    for (let i = 0; i < _callbacks.length; i++) {
+      const call = _callbacks[i];
+      call && call(props);
+    }
+  }
+
+  function _setStatus(isDanger) {
+    props.isDanger = isDanger;
+    if (isDanger) {
+      $plane.classList.add(DANGER_CLASS);
+    } else {
+      $plane.classList.remove(DANGER_CLASS);
+    }
+    _call();
+  }
+
+  function _setSelected(isSelected) {
+    if (isSelected) {
+      $plane.classList.add(SELECTED_CLASS);
+    } else {
+      $plane.classList.remove(SELECTED_CLASS);
+    }
+    _call();
+  }
+
   _init();
   return {
     getX: _getX,
@@ -127,6 +162,9 @@ function Plane({name, x, y, velocity, rotation}) {
     remove: _remove,
     render: _render,
     toggleEngine: _toggleEngine,
+    setStatus: _setStatus,
+    setSelected: _setSelected,
+    onPropUpdate: _onPropUpdate,
     nextPosition: _nextPosition
   }
 }

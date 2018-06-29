@@ -265,6 +265,7 @@ function Ui() {
       List.removePlane(id);
       _remove(id);
     });
+    _checkSelection();
   }
 
   function _registerListeners(){
@@ -283,26 +284,34 @@ function Ui() {
     $radioCart.addEventListener('click', _setInputType, false);
     $radioPolar.addEventListener('click', _setInputType, false);
 
-    window.EventEmitter.on('checkbox-item:change', function(obj){
+    window.EventEmitter.on('checkbox-item:change', _checkSelection);
+  }
 
-      _selected = [];
-
-      document.querySelectorAll('.air-table [type=checkbox]:checked').forEach(el => {
-        _selected.push(_getPlaneById(el.getAttribute('data-plane-id')));
-      });
-      
-      if(_selected.length){
-        $pnRegister.classList.add('hide');
-        $pnTransform.classList.remove('hide');
-        $groupBtnPlane.classList.add('hide');
-        $groupBtnPlaneRegister.classList.add('hide');
-        $groupBtnPlaneTransform.classList.remove('hide');
-      } else {
-        $pnTransform.classList.add('hide');
-        $groupBtnPlane.classList.remove('hide');
-        $groupBtnPlaneTransform.classList.add('hide');
+  function _checkSelection() {
+    if (_selected) {
+      for (let i = 0; i < _selected.length; i++) {
+        const sel = _selected[i];
+        sel.setSelected(false);
       }
+    }
+    _selected = [];
+    document.querySelectorAll('.air-table [type=checkbox]:checked').forEach(el => {
+      var plane = _getPlaneById(el.getAttribute('data-plane-id'));
+      _selected.push(plane);
+      plane.setSelected(true);
     });
+    
+    if(_selected.length){
+      $pnRegister.classList.add('hide');
+      $pnTransform.classList.remove('hide');
+      $groupBtnPlane.classList.add('hide');
+      $groupBtnPlaneRegister.classList.add('hide');
+      $groupBtnPlaneTransform.classList.remove('hide');
+    } else {
+      $pnTransform.classList.add('hide');
+      $groupBtnPlane.classList.remove('hide');
+      $groupBtnPlaneTransform.classList.add('hide');
+    }
   }
 
   function _getInputType(){
@@ -413,22 +422,22 @@ function Ui() {
         rotation
       }));
     }
-    // randomPlanes.push(new Plane({
-    //   velocity: 800,
-    //   x: -50,
-    //   y: -50,
-    //   rotation: 90
-    // }));
-    // randomPlanes.push(new Plane({
-    //   velocity: 800,
-    //   x: 50,
-    //   y: 50,
-    //   rotation: 180
-    // }));
+    randomPlanes.push(new Plane({
+      velocity: 800,
+      x: -50,
+      y: -50,
+      rotation: 90
+    }));
+    randomPlanes.push(new Plane({
+      velocity: 800,
+      x: 50,
+      y: 50,
+      rotation: 180
+    }));
 
     for (let i = 0; i < randomPlanes.length; i++) {
       var p = randomPlanes[i];
-      p.toggleEngine();
+      // p.toggleEngine();
       _add(p);
       List.addPlane(p);
     }
@@ -481,6 +490,8 @@ function Ui() {
           const message = _collisionMessages[i];
           if (message.plane1.getId() == specId 
             || message.plane2.getId() == specId) {
+            message.plane1.setStatus();
+            message.plane2.setStatus();
             message.report.remove();
             _collisionMessages.splice(i, 1);
           }
@@ -492,6 +503,10 @@ function Ui() {
       var name1 = col.plane1.getName();
       var name2 = col.plane2.getName();
       var collisionTime = col.collisionTime;
+
+      col.plane1.setStatus(true);
+      col.plane2.setStatus(true);
+
       var report = Report.addMessage(name1 + ' colidirá com ' + name2 + ' em ' + number.format(collisionTime) + 's', 'danger');
       _collisionMessages.push({
         plane1: col.plane1,

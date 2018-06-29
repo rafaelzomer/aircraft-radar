@@ -3,6 +3,7 @@ import uiUtils from '../ui/uiUtils';
 import checkbox from '../checkbox';
 import number from '../number';
 const ROWS = [];
+const DANGER_CLASS = 'danger'
 
 let list = document.querySelector('List');
 
@@ -83,24 +84,6 @@ function _render() {
       }
       row.appendChild(cell);
     })
-    // let cell = document.createElement("td");
-    // cellCheckbox.appendChild(c);
-    // row.appendChild(cellCheckbox);
-
-
-    // let cellID = document.createElement("td");
-    // let span = document.createElement("span");
-    // span.className = "ellipsis";
-    // span.innerText = r.id;
-    // cellID.appendChild(span);
-    // row.appendChild(cellID);
-
-
-    // let cellX = document.createElement("td");
-    // cellX.className = "text-center";
-    // cellX.innerText = r.x;
-
-
     $body.appendChild(row);
 
   });
@@ -113,6 +96,28 @@ function _addPlane(plane) {
   span.className = 'ellipsis';
   span.innerText = plane.getName();
   checkbox.setId(plane.getId());
+
+  let $xNode = document.createElement('span');
+  let $yNode = document.createElement('span');
+  let $rNode = document.createElement('span');
+  let $aNode = document.createElement('span');
+
+  function setProps(props) {
+    $xNode.innerText = number.format(plane.getX());
+    $yNode.innerText = number.format(plane.getY());
+    $rNode.innerText = number.format(plane.getRadius());
+    $aNode.innerText = number.format(plane.getAngle());
+    var tr = $xNode.closest('tr');
+    if (!tr) {
+      return;
+    }
+    if (props && props.isDanger) {
+      tr.classList.add(DANGER_CLASS);
+    } else {
+      tr.classList.remove(DANGER_CLASS);
+    }
+  }
+  setProps();
   _addRow([{
       type: 'element',
       value: checkbox.getNode()
@@ -122,25 +127,29 @@ function _addPlane(plane) {
       value: document.importNode(span, true)
     },
     {
-      value: number.format(plane.getX()),
+      type: 'element',
+      value: $xNode,
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: number.format(plane.getY()),
+      type: 'element',
+      value: $yNode,
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: number.format(plane.getRadius()),
+      type: 'element',
+      value: $rNode,
       attrs: {
         className: 'text-center'
       }
     },
     {
-      value: number.format(plane.getAngle()),
+      type: 'element',
+      value: $aNode,
       attrs: {
         className: 'text-center'
       }
@@ -158,6 +167,9 @@ function _addPlane(plane) {
       }
     }
   ]);
+  plane.onPropUpdate(function(props) {
+    setProps(props);
+  });
 }
 
 function _addRow(row) {
