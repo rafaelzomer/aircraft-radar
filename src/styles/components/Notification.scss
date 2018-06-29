@@ -1,21 +1,29 @@
 .air-notification {
   font-weight: 300;
   font-size: .9rem;
-  position:relative;
+  position: relative;
   padding: 1rem;
   background-color: color('secondary');
   margin-left: -.5rem;
   margin-right: -.5rem;
+  &:before {
+    position: absolute;
+    height: .5rem;
+    width: .5rem;
+    left: 0;
+    top: 1.25rem;
+    border-radius: 50%;
+  }
   &--error {
     &:before {
       content: "";
       background-color: color('danger');
-      position: absolute;
-      height: .5rem;
-      width: .5rem;
-      left: 0;
-      top: 1.25rem;
-      border-radius: 50%;
+    }
+  }
+  &--info {
+    &:before {
+      content: "";
+      background-color: color('info');
     }
   }
 }

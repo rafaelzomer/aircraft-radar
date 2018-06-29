@@ -12,6 +12,7 @@
     height: 0;
     flex: 1 1 auto;
     overflow-x: hidden;
+    padding-right: .25rem;
   }
   $i: 100;
   @while $i>0 {

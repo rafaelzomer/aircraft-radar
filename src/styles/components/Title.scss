@@ -1,7 +1,7 @@
 .air-title {
-    text-transform: uppercase;
-    font-weight: font('weight', 'regular');
+    font-weight: font('weight', 'light');
     margin: 0;
+    opacity: .5;
     &--primary {
         font-size: 1.5rem;
     }

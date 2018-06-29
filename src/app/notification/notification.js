@@ -1,7 +1,15 @@
 let $notification = document.querySelector('.air-notification');
 
 function error(message) {
+  $notification.classList.remove('air-notification--info');
   $notification.classList.add('air-notification--error');
+  $notification.innerText = message;
+  show();
+}
+
+function info(message) {
+  $notification.classList.remove('air-notification--error');
+  $notification.classList.add('air-notification--info');
   $notification.innerText = message;
   show();
 }
@@ -16,5 +24,6 @@ function show(){
 
 export default {
   error,
+  info,
   hide
 }

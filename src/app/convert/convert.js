@@ -4,7 +4,8 @@ export default {
   cartToPolar: function(x, y) {
     let r = Math.sqrt((Math.pow(x, 2) + Math.pow(y, 2)));
     let m = y / x;
-    let angle = number.radiansToDegrees(Math.atan(m));
+    // Referência: https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2
+    let angle = number.radiansToDegrees(Math.atan2(y, x));
     return {
       a: angle,
       r: r

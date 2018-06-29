@@ -24,6 +24,7 @@
         border-right: 0;
         padding-top: .5rem;
         padding-bottom: .5rem;
+        position: relative;
         &:first-child {
           padding-left: .5rem;
         }
@@ -36,7 +37,7 @@
             left: 0;
             bottom: 0;
             width:100%;
-            border-bottom: .1rem solid color('tertiary');
+            border-bottom: .1rem solid setColorOpacity(color('tertiary'), .15);
         }
       }
     }

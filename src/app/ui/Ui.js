@@ -183,6 +183,7 @@ function Ui() {
     $pnTransform.classList.add('hide');
     $groupBtnPlaneTransform.classList.add('hide');
     $groupBtnPlane.classList.remove('hide');
+    notification.hide();
   }
 
   function _showConfig(){
@@ -205,6 +206,7 @@ function Ui() {
   }
 
   function _setProximity() {
+    notification.hide();
     try {
       config.proximity = validation.toNumber($inProximityPlane.value, 'Distância mín. entre aviões');
       config.airportDistance = validation.toNumber($inProximityAirport.value, 'Prox. mín. do aeroporto');
@@ -218,6 +220,7 @@ function Ui() {
   }
 
   function _setCollision() {
+    notification.hide();
     try {
       config.minCollisionTime = validation.toNumber($inMinCollisionTime.value, 'Tempo mínimo');
       _detectCollision();
@@ -231,6 +234,7 @@ function Ui() {
     $btnConfig.classList.remove('hide');
     $pnConfig.classList.add('hide');
     $groupBtnConfig.classList.add('hide');
+    notification.hide();
   }
 
   function _deletePlane(){
@@ -326,6 +330,7 @@ function Ui() {
     $pnRegister.classList.add('hide');
     $groupBtnPlane.classList.remove('hide');
     $groupBtnPlaneRegister.classList.add('hide');
+    notification.hide();
   }
 
   function _showRegister(e) {
@@ -356,6 +361,7 @@ function Ui() {
   }
 
   function _addPlane() {
+    notification.hide();
     try {
       var cart = {
         x: validation.toNumber($inPlaneX.value),
