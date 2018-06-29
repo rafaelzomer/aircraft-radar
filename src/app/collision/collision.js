@@ -1,6 +1,6 @@
 const RANGE = 2;
 import config from '../config';
-import uiUtils from '../ui/uiUtils';
+import convert from '../convert';
 
 function _detectInList(planes, specificPlanes) {
   var planesWillCollide = {};
@@ -25,7 +25,9 @@ function _detectInList(planes, specificPlanes) {
       if (willCollide) {
         planeListColide.push({
           plane1,
-          plane2
+          plane2,
+          collisionTime: willCollide.collisionTime,
+          collisionPoint: willCollide.collisionPoint
         });
       }
     }
@@ -43,6 +45,10 @@ function _continueNext(next) {
   return false;
 }
 
+function _inRange(next1, next2, cord) {
+  return next1[cord] > next2[cord]-RANGE && next1[cord] < next2[cord]+RANGE;
+}
+
 function _distance({
   x1,
   y1,
@@ -53,10 +59,6 @@ function _distance({
   var foo2 = Math.pow((y2 - y1), 2);
   var result = Math.sqrt(foo1 + foo2);
   return result;
-}
-
-function _inRange(next1, next2, cord) {
-  return next1[cord] > next2[cord]-RANGE && next1[cord] < next2[cord]+RANGE;
 }
 
 function _detect(plane1, plane2) {
@@ -77,14 +79,25 @@ function _detect(plane1, plane2) {
       if (diff < config.proximity) {
         var avgX = (next1.x + next2.x) / 2;
         var avgY = (next1.y + next2.y) / 2;
-        return {
-          collisionPoint: {
-            x: avgX,
-            y: avgY
-          },
-          plane1: next1,
-          plane2: next2
-        };
+        var p1X = plane1.getX();
+        var p1Y = plane1.getY();
+        var p1Velocity = plane1.getVelocity();
+        var distance = _distance({x1: avgX, y1: avgY, x2: p1X, y2: p1Y});
+        if (distance) {
+          var hours = convert.pixelToKm(distance) / p1Velocity;
+          var seconds = convert.hoursToSeconds(hours);
+          if (seconds < config.minCollisionTime) {
+            return {
+              collisionTime: seconds,
+              collisionPoint: {
+                x: avgX,
+                y: avgY
+              },
+              plane1: next1,
+              plane2: next2
+            };
+          }
+        }
       }
     }
     i++;
