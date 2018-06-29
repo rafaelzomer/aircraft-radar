@@ -28,6 +28,7 @@ function Ui() {
 
   // Buttons
   let $btnAdd = document.querySelector('#btnAdd');
+  let $btnAddRandom = document.querySelector('#btnAddRandom');
   let $btnSave = document.querySelector('#btnSave');
   let $btnDelete = document.querySelector('#btnDelete');
   let $btnCancelAdd = document.querySelector('#btnCancelAdd');
@@ -236,6 +237,7 @@ function Ui() {
     EventEmitter.run();
     
     $btnAdd.addEventListener('click', _showRegister, false);
+    $btnAddRandom.addEventListener('click', _addRandom, false);
     $btnCancelAdd.addEventListener('click', _hideRegister, false);
     $btnSave.addEventListener('click', _addPlane, false);
     $btnDelete.addEventListener('click', _deletePlane, false);
@@ -330,11 +332,11 @@ function Ui() {
     $groupBtnPlaneTransform.classList.add('hide');
   }
 
-  function _addPlane() {
-
+  function _addRandom() {
+    var range = 500;
     for (let i = 0; i < 5; i++) {
-      var x = Math.floor(Math.random() * 100) - 50;
-      var y = Math.floor(Math.random() * 100) - 50;
+      var x = Math.floor(Math.random() * range) - (range/2);
+      var y = Math.floor(Math.random() * range) - (range/2);
       var rotation = Math.floor(Math.random() * 360) + 1;
       var plan = new Plane({
         velocity: 380,
@@ -345,7 +347,11 @@ function Ui() {
       _add(plan);
       List.addPlane(plan);
     }
+    _detectCollision();
+    _detectAirportProximity();
+  }
 
+  function _addPlane() {
     try {
       var cart = {
         x: validation.toNumber($inPlaneX.value),
@@ -362,12 +368,12 @@ function Ui() {
         rotation: validation.toNumber($inPlaneDirection.value, 'Rotação')
       });
       plane.toggleEngine();
+      _detectCollision();
+      _detectAirportProximity();
       _add(plane);
     } catch(e) {
       
     }
-    _detectCollision();
-    _detectAirportProximity();
   }
 
   function _detectCollision(specificPlanes) {
