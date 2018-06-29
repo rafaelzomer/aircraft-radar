@@ -138,30 +138,31 @@
                   </div>
                 </div>
                 <script>
-                  function setInputType(e, type){
-                    switch(type) {
+                  function setInputType(e, type) {
+                    switch (type) {
                       case 'Cart':
                         _toggle(true);
-                      break;
+                        break;
                       case 'Polar':
                         _toggle(false);
-                      break;
+                        break;
                     }
 
-                    function _toggle(bool){
+                    function _toggle(bool) {
                       let $allInCart = document.querySelectorAll('.only-cart');
                       let $allInPolar = document.querySelectorAll('.only-polar');
-                      
+
                       $allInCart.forEach(el => {
                         el.classList.toggle('hide', !bool);
                       });
-                      
+
                       $allInPolar.forEach(el => {
                         el.classList.toggle('hide', bool);
                       });
                     }
 
                   }
+
                 </script>
               </div>
               <div class="col col-3 only-cart">
@@ -182,6 +183,10 @@
               </div>
             </div>
           </section>
+          <footer class="air-section__footer">
+            <div class="air-notification hide">
+            </div>
+          </footer>
         </section>
       </section>
       <footer class="air-bar__footer air-bar__footer--divider">
