@@ -2,8 +2,10 @@
   font-weight: 300;
   font-size: .9rem;
   position:relative;
-  padding-top: .20rem;
-  padding-left: 1rem;
+  padding: 1rem;
+  background-color: color('secondary');
+  margin-left: -.5rem;
+  margin-right: -.5rem;
   &--error {
     &:before {
       content: "";
@@ -12,7 +14,7 @@
       height: .5rem;
       width: .5rem;
       left: 0;
-      top: .45rem;
+      top: 1.25rem;
       border-radius: 50%;
     }
   }
