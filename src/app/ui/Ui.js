@@ -342,21 +342,39 @@ function Ui() {
   }
 
   function _addRandom() {
+    var randomPlanes = [];
     var range = 500;
     for (let i = 0; i < 5; i++) {
       var x = Math.floor(Math.random() * range) - (range/2);
       var y = Math.floor(Math.random() * range) - (range/2);
       var rotation = Math.floor(Math.random() * 360) + 1;
-      var plan = new Plane({
+      randomPlanes.push(new Plane({
         velocity: 380,
         x,
         y,
         rotation
-      });
-      _add(plan);
-      List.addPlane(plan);
+      }));
     }
-    _detectCollision();
+    // randomPlanes.push(new Plane({
+    //   velocity: 800,
+    //   x: -50,
+    //   y: -50,
+    //   rotation: 90
+    // }));
+    // randomPlanes.push(new Plane({
+    //   velocity: 800,
+    //   x: 50,
+    //   y: 50,
+    //   rotation: 180
+    // }));
+
+    for (let i = 0; i < randomPlanes.length; i++) {
+      var p = randomPlanes[i];
+      p.toggleEngine();
+      _add(p);
+      List.addPlane(p);
+    }
+    _detectCollision(randomPlanes);
     _detectAirportProximity();
   }
 
@@ -378,7 +396,7 @@ function Ui() {
         rotation: validation.toNumber($inPlaneDirection.value, 'Rotação')
       });
       plane.toggleEngine();
-      _detectCollision();
+      _detectCollision([plane]);
       _detectAirportProximity();
       _add(plane);
       List.addPlane(plane);
@@ -408,7 +426,8 @@ function Ui() {
     ret.map(col => {
       var name1 = col.plane1.getName();
       var name2 = col.plane2.getName();
-      var report = Report.addMessage(name1 + ' colidirá com ' + name2, 'danger');
+      var collisionTime = col.collisionTime;
+      var report = Report.addMessage(name1 + ' colidirá com ' + name2 + ' em ' + number.format(collisionTime) + 's', 'danger');
       _collisionMessages.push({
         plane1: col.plane1,
         plane2: col.plane2,

@@ -13,6 +13,7 @@ function Plane({name, x, y, velocity, rotation}) {
   if (velocity < config.minVelocity) {
     throw 'o avião deve estar a mais de ' + config.minVelocity + ' km/h';
   }
+
   name = (name || uiUtils.generateHash()).toUpperCase();
   var props = {name, x, y, velocity, rotation};
   var engineOn = false; 
@@ -55,7 +56,7 @@ function Plane({name, x, y, velocity, rotation}) {
   function _engineRunner() {
     setInterval(function() {
       if (engineOn) {
-        var nextPosition = _nextPosition(props.x, props.y, _getConvertedVelocity());
+        var nextPosition = _nextPosition(props.x, props.y, 1);
         props.x = nextPosition.x;
         props.y = nextPosition.y;
       }
@@ -63,7 +64,7 @@ function Plane({name, x, y, velocity, rotation}) {
   }
 
   function _getConvertedVelocity() {
-    return props.velocity / 400;
+    return convert.kmToPixel(props.velocity) * convert.secondsToHours(config.timeout / 1000);
   }
 
   function _setX(value){
@@ -118,6 +119,7 @@ function Plane({name, x, y, velocity, rotation}) {
     getAngle: _getAngle,
     getRotation: _getRotation,
     getVelocity: _getVelocity,
+    getConvertedVelocity: _getConvertedVelocity,
     render: _render,
     toggleEngine: _toggleEngine,
     nextPosition: _nextPosition
