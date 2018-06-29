@@ -375,7 +375,7 @@ function Ui() {
       _detectCollision();
       _detectAirportProximity();
       _add(plane);
-      List.addPlane(plan);
+      List.addPlane(plane);
     } catch(e) {
       notification.error(e);
     }
