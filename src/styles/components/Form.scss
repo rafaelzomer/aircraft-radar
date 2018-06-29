@@ -14,6 +14,9 @@
   padding: .5rem;
   color: color('tertiary');
   width: 100%;
+  &--error {
+    border-bottom-color: color('danger');
+  }
   &:focus {
     border-bottom-color: setColorOpacity(color('tertiary'), 1);
   }
