@@ -207,6 +207,7 @@ function Ui() {
     try {
       config.proximity = validation.toNumber($inProximityPlane.value);
       config.airportDistance = validation.toNumber($inProximityAirport.value);
+      _detectCollision();
       _detectAirportProximity();
     } catch(e) {
       $inProximityPlane.value = config.proximity;
