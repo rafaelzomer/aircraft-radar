@@ -15,6 +15,7 @@ import collision from '../collision';
 import Report from '../report';
 import proximity from '../proximity/proximity';
 import number from '../number';
+import notification from '../notification/notification';
 
 function Ui() {
   var _objects = [];
@@ -205,22 +206,24 @@ function Ui() {
 
   function _setProximity() {
     try {
-      config.proximity = validation.toNumber($inProximityPlane.value);
-      config.airportDistance = validation.toNumber($inProximityAirport.value);
+      config.proximity = validation.toNumber($inProximityPlane.value, 'Distância mín. entre aviões');
+      config.airportDistance = validation.toNumber($inProximityAirport.value, 'Prox. mín. do aeroporto');
       _detectCollision();
       _detectAirportProximity();
     } catch(e) {
       $inProximityPlane.value = config.proximity;
       $inProximityAirport.value = config.airportDistance;
+      notification.error(e);
     }
   }
 
   function _setCollision() {
     try {
-      config.minCollisionTime = validation.toNumber($inMinCollisionTime.value);
+      config.minCollisionTime = validation.toNumber($inMinCollisionTime.value, 'Tempo mínimo');
       _detectCollision();
     } catch(e) {
       $inMinCollisionTime.value = config.minCollisionTime;
+      notification.error(e);
     }
   }
 
@@ -372,8 +375,9 @@ function Ui() {
       _detectCollision();
       _detectAirportProximity();
       _add(plane);
+      List.addPlane(plan);
     } catch(e) {
-      
+      notification.error(e);
     }
   }
 
