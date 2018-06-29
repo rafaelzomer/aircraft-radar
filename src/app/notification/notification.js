@@ -4,7 +4,6 @@ function error(message) {
   $notification.classList.add('air-notification--error');
   $notification.innerText = message;
   show();
-  throw message;
 }
 
 function hide() {
