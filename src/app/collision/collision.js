@@ -76,7 +76,7 @@ function _detect(plane1, plane2) {
       diff = Math.abs(next1.y - next2.y);
     }
     if (diff !== false) {
-      if (diff < config.proximity) {
+      if (convert.pixelToKm(diff) < convert.metersToKm(config.proximity)) {
         var avgX = (next1.x + next2.x) / 2;
         var avgY = (next1.y + next2.y) / 2;
         var p1X = plane1.getX();

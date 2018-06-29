@@ -42,6 +42,12 @@ export default {
     }
     return value / 3600;
   },
+  metersToKm: function(value) {
+    if (!value) {
+      return;
+    }
+    return value / 1000;
+  },
   hoursToSeconds: function(value) {
     if (!value) {
       return;
