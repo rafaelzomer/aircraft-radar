@@ -118,13 +118,19 @@ function Ui() {
   function _setTranslation(){
     let $inTranslationX = document.querySelector('#inTranslationX');
     let $inTranslationY = document.querySelector('#inTranslationY');
+    let x2, y2;
+
+    try {
+      x2 = validation.toNumber($inTranslationX.value, 'Eixo X');
+      y2 = validation.toNumber($inTranslationY.value, 'Eixo Y');
+    } catch(e) {
+      notification.error(e);
+      return;
+    }
 
     _selected.map(p => {
       let x1 = p.getX();
       let y1 = p.getY();
-  
-      let x2 = new Number($inTranslationX.value);
-      let y2 = new Number($inTranslationY.value);
   
       let {x, y} = translation.run({x1, y1}, {x2, y2});
   
@@ -137,13 +143,19 @@ function Ui() {
   function _setScaling(){
     let $inScalingX = document.querySelector('#inScalingX');
     let $inScalingY = document.querySelector('#inScalingY');
+    let x2, y2;
+
+    try {
+      x2 = validation.toNumber($inScalingX.value, 'Eixo X');
+      y2 = validation.toNumber($inScalingY.value, 'Eixo Y');
+    } catch(e) {
+      notification.error(e);
+      return;
+    }
 
     _selected.map(p => {
       let x1 = p.getX();
       let y1 = p.getY();
-
-      let x2 = new Number($inScalingX.value);
-      let y2 = new Number($inScalingY.value);
 
       let {x, y} = scaling.run({x1, y1}, {x2, y2});
 
@@ -157,14 +169,19 @@ function Ui() {
     let $inRotationAngle = document.querySelector('#inRotationAngle');
     let $inRotationX = document.querySelector('#inRotationX');
     let $inRotationY = document.querySelector('#inRotationY');
+    let angle, x2, y2;
 
+    try {
+      angle = validation.toNumber($inRotationAngle.value, 'Ângulo');
+      x2 = validation.toNumber($inRotationX.value, 'Eixo X');
+      y2 = validation.toNumber($inRotationY.value, 'Eixo Y');
+    } catch(e){
+      notification.error(e);
+      return;
+    }
     _selected.map(p => {
       let x1 = p.getX();
       let y1 = p.getY();
-
-      let angle = new Number($inRotationAngle.value);
-      let x2 = new Number($inRotationX.value);
-      let y2 = new Number($inRotationY.value);
       
       let center = move.moveToCenter(x2, y2);
       
