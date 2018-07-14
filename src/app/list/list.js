@@ -1,5 +1,3 @@
-import tableTemplate from './table.template.html';
-import uiUtils from '../ui/uiUtils';
 import checkbox from '../checkbox';
 import number from '../number';
 const ROWS = [];
@@ -7,7 +5,8 @@ const DANGER_CLASS = 'danger'
 
 let list = document.querySelector('List');
 
-let $table = uiUtils.stringToHtml(tableTemplate);
+let $table = document.createElement('table');
+$table.classList.add('air-table', 'air-table--sticky', 'air-table--striped', 'air-table--hover')
 
 let $header = $table.createTHead();
 
@@ -33,10 +32,10 @@ function _setHeader(cols) {
   });
 }
 
-function _handleClick(e){
+function _handleClick(e) {
   let $row;
   let $checkbox;
-  if(e.target.parentElement.nodeName == 'TR'){
+  if (e.target.parentElement.nodeName == 'TR') {
     $row = e.target.parentElement;
   } else {
     $row = e.target.parentElement.parentElement;
@@ -49,9 +48,9 @@ function _removePlane(id) {
   let row;
   ROWS.map((r, i) => {
     r.map(c => {
-      if(c.type == 'element' && c.value.classList.contains('air-checkbox')){
+      if (c.type == 'element' && c.value.classList.contains('air-checkbox')) {
         let $cbx = c.value.firstChild;
-        if($cbx.dataset.planeId == id){
+        if ($cbx.dataset.planeId == id) {
           row = i;
         }
       }
@@ -163,7 +162,7 @@ function _addPlane(plane) {
       }
     }
   ]);
-  plane.onPropUpdate(function(props) {
+  plane.onPropUpdate(function (props) {
     setProps(props);
   });
 }
