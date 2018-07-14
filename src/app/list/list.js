@@ -9,30 +9,28 @@ let list = document.querySelector('List');
 
 let $table = uiUtils.stringToHtml(tableTemplate);
 
-let $header = $table.querySelector('thead');
+let $header = $table.createTHead();
 
-let $body = $table.querySelector('tbody');
+let $body = document.createElement('tbody');
+
+$table.appendChild($body);
 
 function clean(el) {
   el.innerHTML = "";
 }
 
 function _setHeader(cols) {
-  let row = document.createElement("tr");
+  let $row = $header.insertRow();
   cols.map(c => {
 
-    let cell = document.createElement("th");
-    cell.innerText = c.text;
+    let $cell = $row.insertCell();
+    $cell.textContent = c.text;
     for (let attribute in c.attrs) {
 
-      cell[attribute] = c.attrs[attribute];
+      $cell[attribute] = c.attrs[attribute];
 
     }
-
-    row.appendChild(cell);
-
   });
-  $header.appendChild(row);
 }
 
 function _handleClick(e){
@@ -67,24 +65,22 @@ function _removePlane(id) {
 function _render() {
   clean($body);
   ROWS.map(r => {
-    let row = document.createElement("tr");
-    row.addEventListener('click', _handleClick);
+    let $row = $body.insertRow();
+    $row.addEventListener('click', _handleClick);
     r.map(c => {
-      let cell = document.createElement("td");
+      let $cell = $row.insertCell();
 
       if (c.type == 'element') {
-        cell.appendChild(c.value);
+        $cell.appendChild(c.value);
 
       } else {
-        cell.innerHTML = c.value;
+        $cell.innerHTML = c.value;
       }
 
       for (let attribute in c.attrs) {
-        cell[attribute] = c.attrs[attribute];
+        $cell[attribute] = c.attrs[attribute];
       }
-      row.appendChild(cell);
     })
-    $body.appendChild(row);
 
   });
 
